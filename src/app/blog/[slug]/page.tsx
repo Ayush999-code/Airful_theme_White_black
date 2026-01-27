@@ -17,21 +17,23 @@ export default function BlogPostPage() {
 
   if (!post) {
     return (
-      <section className="pt-32 pb-16 min-h-screen">
-        <Container>
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-white mb-4">
-              Post Not Found
-            </h1>
-            <p className="text-zinc-400 mb-8">
-              The blog post you&apos;re looking for doesn&apos;t exist.
-            </p>
-            <Link href="/blog">
-              <Button variant="primary">View All Posts</Button>
-            </Link>
-          </div>
-        </Container>
-      </section>
+      <>
+        <section className="pt-32 pb-16 min-h-screen">
+          <Container>
+            <div className="text-center">
+              <h1 className="text-4xl font-bold text-white mb-4">
+                Post Not Found
+              </h1>
+              <p className="text-zinc-400 mb-8">
+                The blog post you&apos;re looking for doesn&apos;t exist.
+              </p>
+              <Link href="/blog">
+                <Button variant="primary">View All Posts</Button>
+              </Link>
+            </div>
+          </Container>
+        </section>
+      </>
     );
   }
 

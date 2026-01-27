@@ -16,22 +16,24 @@ export default function JobDetailPage() {
 
   if (!job) {
     return (
-      <section className="pt-32 pb-16 min-h-screen">
-        <Container>
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-white mb-4">
-              Position Not Found
-            </h1>
-            <p className="text-zinc-400 mb-8">
-              The job you&apos;re looking for doesn&apos;t exist or has been
-              filled.
-            </p>
-            <Link href="/careers">
-              <Button variant="primary">View All Positions</Button>
-            </Link>
-          </div>
-        </Container>
-      </section>
+      <>
+        <section className="pt-32 pb-16 min-h-screen">
+          <Container>
+            <div className="text-center">
+              <h1 className="text-4xl font-bold text-white mb-4">
+                Position Not Found
+              </h1>
+              <p className="text-zinc-400 mb-8">
+                The job you&apos;re looking for doesn&apos;t exist or has been
+                filled.
+              </p>
+              <Link href="/careers">
+                <Button variant="primary">View All Positions</Button>
+              </Link>
+            </div>
+          </Container>
+        </section>
+      </>
     );
   }
 

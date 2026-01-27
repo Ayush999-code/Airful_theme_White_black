@@ -16,21 +16,23 @@ export default function ServiceDetailPage() {
 
   if (!service) {
     return (
-      <section className="pt-32 pb-16 min-h-screen">
-        <Container>
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-white mb-4">
-              Service Not Found
-            </h1>
-            <p className="text-zinc-400 mb-8">
-              The service you&apos;re looking for doesn&apos;t exist.
-            </p>
-            <Link href="/services">
-              <Button variant="primary">View All Services</Button>
-            </Link>
-          </div>
-        </Container>
-      </section>
+      <>
+        <section className="pt-32 pb-16 min-h-screen">
+          <Container>
+            <div className="text-center">
+              <h1 className="text-4xl font-bold text-white mb-4">
+                Service Not Found
+              </h1>
+              <p className="text-zinc-400 mb-8">
+                The service you&apos;re looking for doesn&apos;t exist.
+              </p>
+              <Link href="/services">
+                <Button variant="primary">View All Services</Button>
+              </Link>
+            </div>
+          </Container>
+        </section>
+      </>
     );
   }
 

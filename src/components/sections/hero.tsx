@@ -22,11 +22,8 @@ export function Hero() {
       data-lux-reveal
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 gradient-spotlight" />
-      <div className="absolute inset-0 grid-pattern opacity-50" />
-
-      {/* Animated gradient orb */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#227774]/20 via-black/20 to-[#227774]/20 rounded-full blur-3xl animate-pulse-glow" />
+      <div className="absolute inset-0 hero-bg" />
+      <div className="absolute inset-0 hero-grid" />
 
       <Container className="relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">

@@ -64,11 +64,11 @@ export default function ContactPage() {
               Contact Us
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Let's start your{" "}
+              Let&apos;s start your{" "}
               <span className="gradient-text">transformation</span>
             </h1>
             <p className="text-xl text-zinc-400">
-              Ready to breathe new life into your digital ecosystem? We'd love to
+              Ready to breathe new life into your digital ecosystem? We&apos;d love to
               hear about your vision and challenges.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-white mb-6">Get in touch</h2>
               <p className="text-zinc-400 mb-8">
                 Whether you have a specific project in mind or just want to explore
-                possibilities, we're here to help guide your digital transformation
+                possibilities, we&apos;re here to help guide your digital transformation
                 journey.
               </p>
 

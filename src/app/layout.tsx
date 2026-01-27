@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Jost, Dosis } from "next/font/google";
+import { Geist, Geist_Mono, Poppins, Raleway } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ScrollEffects } from "@/components/ui/scroll-effects";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import { CtaPlacement } from "@/components/layout/cta-placement";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,14 +17,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const jost = Jost({
+const poppins = Poppins({
   variable: "--font-heading",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const dosis = Dosis({
+const raleway = Raleway({
   variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -63,11 +67,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${jost.variable} ${dosis.variable} antialiased bg-black text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${raleway.variable} antialiased bg-black text-white`}
       >
         <ScrollEffects />
         <Header />
+        <Breadcrumbs />
         <main>{children}</main>
+        <CtaPlacement />
         <Footer />
       </body>
     </html>

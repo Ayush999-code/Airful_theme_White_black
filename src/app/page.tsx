@@ -4,7 +4,7 @@ import { Process } from "@/components/sections/process";
 import { Outcomes } from "@/components/sections/outcomes";
 import { CaseStudies } from "@/components/sections/case-studies";
 import { Testimonials } from "@/components/sections/testimonials";
-import { CTA } from "@/components/sections/cta";
+import CTA from "@/components/sections/cta";
 
 export default function Home() {
   return (
