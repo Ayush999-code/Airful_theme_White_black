@@ -199,6 +199,33 @@ p {
   --tw-gradient-to: rgba(34, 119, 116, 0.2);
 }
 
+/* Case study rich text (PortableText) */
+.prose.prose-invert p strong {
+  font-weight: 800;
+  padding-top: 8px;
+  display: block;
+  padding-bottom: 9px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.prose ul li {
+  position: relative;
+  padding-left: 18px;
+  padding-bottom: 9px;
+}
+
+.prose ul li::after {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  left: 0;
+  top: 8px;
+  border-radius: 100px;
+}
+
 .via-purple-500\/20 {
   --tw-gradient-stops: var(--tw-gradient-from), rgba(11, 30, 29, 0.2), var(--tw-gradient-to);
 }
@@ -381,7 +408,6 @@ html.lux-js [data-lux-reveal].is-visible {
 
 
 /*    Ayush css  */
-
 
 
 

@@ -1,243 +1,250 @@
-"use client";
-
-import { useParams } from "next/navigation";
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
 import { Container } from "@/components/ui/container";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, ExternalLink, CheckCircle2 } from "lucide-react";
-import { caseStudiesData, type CaseStudy } from "@/data/case-studies";
+import { PortableText } from "@portabletext/react";
+import CTA from "@/components/sections/cta";
+import type { Metadata } from "next";
+import type { PortableTextBlock } from "@portabletext/types";
 
+export const dynamic = "force-dynamic";
 
-export default function CaseStudyPage() {
-  const params = useParams();
-  const slug = params.slug as string;
-  const caseStudy = caseStudiesData[slug];
+const sanity = client.withConfig({
+  useCdn: false,
+  token: process.env.SANITY_API_TOKEN,
+  perspective: process.env.SANITY_API_TOKEN ? "previewDrafts" : "published",
+});
 
-  if (!caseStudy) {
+const query = `*[_type=="caseStudy" && slug.current == $slug][0]{
+  title,
+  shortDescription,
+  serviceCategory,
+  challenges,
+  solution,
+  results,
+  technologiesUsed,
+  keyResults,
+  seoTitle,
+  seoDescription
+}`;
+
+const metadataQuery = `*[_type=="caseStudy" && slug.current == $slug][0]{
+  seoTitle,
+  seoDescription,
+  title,
+  shortDescription
+}`;
+
+type CaseStudy = {
+  title: string;
+  shortDescription?: string;
+  serviceCategory?: string;
+  challenges?: PortableTextBlock[];
+  solution?: PortableTextBlock[];
+  results?: PortableTextBlock[];
+  technologiesUsed?: string[];
+  keyResults?: string[];
+  seoTitle?: string;
+  seoDescription?: string;
+};
+
+type CaseStudyMeta = {
+  seoTitle?: string;
+  seoDescription?: string;
+  title?: string;
+  shortDescription?: string;
+};
+
+const normalizeSlug = (input: string | string[] | undefined) => {
+  if (!input) return "";
+  const raw = Array.isArray(input) ? input[0] : input;
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string | string[] }>;
+}): Promise<Metadata> {
+  const { slug: rawSlug } = await params;
+  const slug = normalizeSlug(rawSlug);
+  if (!slug) return {};
+
+  const data = await sanity.fetch<CaseStudyMeta | null>(metadataQuery, { slug });
+  if (!data) return {};
+
+  return {
+    title: data.seoTitle || data.title,
+    description: data.seoDescription || data.shortDescription,
+  };
+}
+
+export default async function CaseStudyPage({
+  params,
+}: {
+  params: Promise<{ slug: string | string[] }>;
+}) {
+  const { slug: rawSlug } = await params;
+  const slug = normalizeSlug(rawSlug);
+  if (!slug) {
     return (
-      <>
-        <section className="pt-32 pb-16 min-h-screen">
-          <Container>
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-white mb-4">
-                Case Study Not Found
-              </h1>
-              <p className="text-zinc-400 mb-8">
-                The case study you&apos;re looking for doesn&apos;t exist.
-              </p>
-              <Link href="/case-studies">
-                <Button variant="primary">View All Case Studies</Button>
-              </Link>
-            </div>
-          </Container>
-        </section>
-      </>
+      <div className="pt-32 text-center text-zinc-400">
+        Case study not found
+      </div>
+    );
+  }
+
+  const data = await sanity.fetch<CaseStudy | null>(query, { slug });
+
+  if (!data) {
+    return (
+      <div className="pt-32 text-center text-zinc-400">
+        Case study not found
+      </div>
     );
   }
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 gradient-spotlight" />
-        <Container className="relative z-10">
-          <Link
-            href="/case-studies"
-            className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Case Studies
-          </Link>
+    
 
-          <Badge variant="glow" className="mb-4">
-            {caseStudy.category}
-          </Badge>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4"
-          >
-            {caseStudy.title}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-zinc-400 max-w-3xl"
-          >
-            {caseStudy.subtitle}
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 text-zinc-400 max-w-3xl"
-          >
-            {caseStudy.description}
-          </motion.p>
-
-          {caseStudy.projectUrl && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="mt-8"
-            >
-              <a
-                href={caseStudy.projectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button variant="outline" className="group">
-                  View Project
-                  <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </Button>
-              </a>
-            </motion.div>
-          )}
-        </Container>
-      </section>
-
-      {/* Challenges Section */}
-      <section className="py-16 border-t border-zinc-800">
+      <section className="pt-[80px] pb-12">
         <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Badge variant="outline" className="mb-4">
-              The Challenge
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">
-              Problems We Solved
-            </h2>
-            <div className="grid md:grid-cols-2 gap-4">
-              {caseStudy.challenges.map((challenge, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex gap-3 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800"
-                >
-                  <div className="w-2 h-2 rounded-full bg-red-500 mt-2 shrink-0" />
-                  <p className="text-zinc-400">{challenge}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </Container>
-      </section>
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_380px]">
+            {/* LEFT */}
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+                {data.title}
+              </h1>
+              {data.shortDescription ? (
+                <p className="text-lg text-zinc-400 mb-8">
+                  {data.shortDescription}
+                </p>
+              ) : null}
+              <div className="h-px w-full bg-zinc-800 mb-10" />
 
-      {/* Solutions Section */}
-      <section className="py-16 border-t border-zinc-800">
-        <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Badge variant="outline" className="mb-4">
-              Our Approach
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">
-              How We Solved It
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {caseStudy.solutions.map((solution, index) => (
-                <motion.div
-                  key={solution.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800"
-                >
-                  <h3 className="text-lg font-semibold text-white mb-4">
-                    {solution.title}
-                  </h3>
-                  <ul className="space-y-3">
-                    {solution.items.map((item, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-zinc-400">
-                        <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </Container>
-      </section>
-
-      {/* Results Section */}
-      <section className="py-16 border-t border-zinc-800">
-        <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Badge variant="outline" className="mb-4">
-              The Outcome
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">
-              Results Achieved
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {caseStudy.results.map((result, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-green-500" />
-                    <p className="text-zinc-300 font-medium">{result}</p>
+              {data.challenges && data.challenges.length > 0 ? (
+                <section className="mb-14">
+                  <h2 className="text-2xl font-bold text-white mb-4">
+                    Challenges
+                  </h2>
+                  <div className="prose prose-invert max-w-none prose-headings:mt-6 prose-headings:mb-3 prose-ul:mt-4 prose-li:my-2 prose-li:leading-7">
+                    <PortableText value={data.challenges} />
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </Container>
-      </section>
+                </section>
+              ) : null}
 
-      {/* CTA Section */}
-      <section className="py-24 border-t border-zinc-800">
-        <Container>
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              Ready to Transform Your Business?
-            </h2>
-            <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
-              Let&apos;s discuss how we can help you achieve similar results.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button variant="primary" size="lg">
-                  Schedule a Discovery Meeting
-                </Button>
-              </Link>
-              <Link href="/case-studies">
-                <Button variant="outline" size="lg">
-                  View More Case Studies
-                </Button>
-              </Link>
+              {data.solution && data.solution.length > 0 ? (
+                <section className="mb-14">
+                  <h2 className="text-2xl font-bold text-white mb-4">
+                    Solution
+                  </h2>
+                  <div className="prose prose-invert max-w-none prose-headings:mt-6 prose-headings:mb-3 prose-ul:mt-4 prose-li:my-2 prose-li:leading-7">
+                    <PortableText value={data.solution} />
+                  </div>
+                </section>
+              ) : null}
+
+              {data.results && data.results.length > 0 ? (
+                <section className="mb-10">
+                  <h2 className="text-2xl font-bold text-white mb-4">
+                    Results
+                  </h2>
+                  <div className="prose prose-invert max-w-none prose-headings:mt-6 prose-headings:mb-3 prose-ul:mt-4 prose-li:my-2 prose-li:leading-7">
+                    <PortableText value={data.results} />
+                  </div>
+                </section>
+              ) : null}
             </div>
+
+            {/* RIGHT */}
+            <aside className="lg:sticky lg:top-28 h-fit space-y-6">
+              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6">
+                <p className="text-sm text-zinc-400 mb-2.5">Service Category:</p>
+                <p className="text-white font-semibold">
+                  {data.serviceCategory || "—"}
+                </p>
+                <div className="my-6 h-px w-full bg-zinc-800" />
+
+                {data.technologiesUsed && data.technologiesUsed.length > 0 ? (
+                  <div className="mb-6">
+                    <h3 className="text-sm font-semibold text-white mb-2.5">
+                      Technologies
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {data.technologiesUsed.map((tech, i) => (
+                        <span
+                          key={`tech-${i}`}
+                          className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs text-white"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                {data.keyResults && data.keyResults.length > 0 ? (
+                  <div>
+                    <h3 className="text-sm font-semibold text-white mb-2.5">
+                      Key Results
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {data.keyResults.map((result, i) => (
+                        <span
+                          key={`result-${i}`}
+                          className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs text-white"
+                        >
+                          {result}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  Submit Application
+                </h3>
+                <form className="space-y-4">
+                  <div>
+                    <label className="block text-sm text-zinc-400 mb-2">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="w-full rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-[#2b9f9a]"
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-zinc-400 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      rows={4}
+                      className="w-full rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-[#2b9f9a]"
+                      placeholder="Tell us about your project..."
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-gradient-to-r from-[#d5f5f1] via-[#8ddbd4] to-[#2b9f9a] px-5 py-3 text-sm font-semibold text-black shadow-[0_14px_40px_rgba(34,119,116,0.35)] transition hover:shadow-[0_22px_55px_rgba(34,119,116,0.4)]"
+                  >
+                    Enquire Now
+                  </button>
+                </form>
+              </div>
+            </aside>
           </div>
         </Container>
       </section>
+
+      <CTA />
     </>
   );
 }
