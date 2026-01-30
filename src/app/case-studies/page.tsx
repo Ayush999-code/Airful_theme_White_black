@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/container";
 import { urlFor } from "@/sanity/lib/image";
 import { isConfigured, projectId, dataset } from "@/sanity/env";
 
-const query = `*[_type=="caseStudy" && defined(title)]{
+const query = `*[_type=="caseStudy"]{
   title,
   serviceCategory,
   shortDescription,
@@ -28,36 +28,68 @@ type CaseStudyListItem = {
 export default async function CaseStudiesPage() {
   let caseStudies: CaseStudyListItem[] = [];
   let hasError = false;
+  let errorMessage = '';
   
   // Debug logging (server-side only)
   const isDev = process.env.NODE_ENV === 'development';
-  if (isDev || process.env.VERCEL) {
-    console.log('[CaseStudies] Config check:', {
-      isConfigured: isConfigured(),
+  const isVercel = !!process.env.VERCEL;
+  const shouldLog = isDev || isVercel;
+  
+  if (shouldLog) {
+    console.log('\n========== [CaseStudies PAGE] START DEBUG ==========');
+    console.log('[CaseStudies] Environment:', {
+      NODE_ENV: process.env.NODE_ENV,
+      VERCEL: isVercel,
+      NEXT_PUBLIC_SANITY_PROJECT_ID: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'NOT_SET',
+      NEXT_PUBLIC_SANITY_DATASET: process.env.NEXT_PUBLIC_SANITY_DATASET || 'NOT_SET',
+      NEXT_PUBLIC_SANITY_API_VERSION: process.env.NEXT_PUBLIC_SANITY_API_VERSION || 'NOT_SET',
+    });
+    console.log('[CaseStudies] Parsed config:', {
       projectId: projectId || 'NOT_SET',
       dataset: dataset || 'NOT_SET',
-      environment: process.env.NODE_ENV,
-      vercel: !!process.env.VERCEL,
+      isConfigured: isConfigured(),
     });
   }
   
   try {
     if (isConfigured()) {
+      if (shouldLog) {
+        console.log('[CaseStudies] Fetching with query:', query);
+      }
       caseStudies = await client.fetch<CaseStudyListItem[]>(query);
-      if (isDev || process.env.VERCEL) {
-        console.log('[CaseStudies] Fetch result:', {
+      if (shouldLog) {
+        console.log('[CaseStudies] Fetch SUCCESS:', {
           count: caseStudies.length,
-          query: query.substring(0, 50) + '...',
+          data: caseStudies.length > 0 ? caseStudies.map(cs => ({ title: cs.title, slug: cs.slug })) : 'EMPTY',
         });
       }
+      
+      // Diagnostic: if empty, try counting total documents
+      if (caseStudies.length === 0 && shouldLog) {
+        try {
+          const countResult = await client.fetch<number>('count(*[_type=="caseStudy"])');
+          console.log('[CaseStudies] Diagnostic count query result:', countResult);
+        } catch (countError) {
+          console.error('[CaseStudies] Diagnostic count query failed:', countError);
+        }
+      }
     } else {
-      if (isDev || process.env.VERCEL) {
-        console.log('[CaseStudies] Sanity not configured');
+      errorMessage = 'Sanity not configured (missing projectId or dataset)';
+      if (shouldLog) {
+        console.log('[CaseStudies] ERROR:', errorMessage);
       }
     }
   } catch (error) {
-    console.error('[CaseStudies] Failed to fetch case studies:', error);
+    errorMessage = error instanceof Error ? error.message : String(error);
+    console.error('[CaseStudies] FETCH FAILED:', {
+      error: errorMessage,
+      errorFull: error,
+    });
     hasError = true;
+  }
+  
+  if (shouldLog) {
+    console.log('========== [CaseStudies PAGE] END DEBUG ==========\n');
   }
 
   return (
