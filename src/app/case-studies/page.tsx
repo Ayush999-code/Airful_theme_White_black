@@ -11,8 +11,7 @@ const query = `*[_type=="caseStudy"]{
   shortDescription,
   thumbnail,
   "slug": slug.current,
-  technologiesUsed,
-  keyResults
+  technologiesUsed
 } | order(_createdAt desc)`;
 
 type CaseStudyListItem = {
@@ -22,7 +21,6 @@ type CaseStudyListItem = {
   thumbnail?: unknown;
   slug: string;
   technologiesUsed?: string[];
-  keyResults?: string[];
 };
 
 export default async function CaseStudiesPage() {
@@ -161,21 +159,6 @@ export default async function CaseStudiesPage() {
                   {study.shortDescription}
                 </p>
 
-                <div className="mt-6">
-                  <p className="text-xs font-semibold tracking-[0.2em] text-cyan-300">
-                    KEY RESULTS
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {study.keyResults?.map((result, i) => (
-                      <span
-                        key={`${study.slug}-result-${i}`}
-                        className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-200 shadow-[0_0_12px_rgba(34,211,238,0.25)]"
-                      >
-                        {result}
-                      </span>
-                    ))}
-                  </div>
-                </div>
                 <div className="mt-6">
                   <span className="inline-flex items-center rounded-full border border-cyan-400/50 px-4 py-2 text-sm text-cyan-300 transition hover:text-cyan-200 hover:shadow-[0_0_16px_rgba(34,211,238,0.3)]">
                     Read More →

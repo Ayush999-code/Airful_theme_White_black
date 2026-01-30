@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { PortableText } from "@portabletext/react";
 import CTA from "@/components/sections/cta";
 import { isConfigured } from "@/sanity/env";
+import { BreadcrumbStrip } from "@/components/layout/breadcrumb-strip";
 import type { Metadata } from "next";
 import type { PortableTextBlock } from "@portabletext/types";
 
@@ -21,7 +22,6 @@ const query = `*[_type=="caseStudy" && slug.current == $slug][0]{
   serviceCategory,
   challenges,
   solution,
-  results,
   technologiesUsed,
   seoTitle,
   seoDescription
@@ -40,7 +40,6 @@ type CaseStudy = {
   serviceCategory?: string;
   challenges?: PortableTextBlock[];
   solution?: PortableTextBlock[];
-  results?: PortableTextBlock[];
   technologiesUsed?: string[];
   seoTitle?: string;
   seoDescription?: string;
@@ -126,7 +125,7 @@ export default async function CaseStudyPage({
 
   return (
     <>
-    
+      <BreadcrumbStrip items={["Home", "Case Studies", data.title]} />
 
       <section className="pt-[80px] pb-12">
         <Container>
@@ -161,17 +160,6 @@ export default async function CaseStudyPage({
                   </h2>
                   <div className="prose prose-invert max-w-none prose-headings:mt-6 prose-headings:mb-3 prose-ul:mt-4 prose-li:my-2 prose-li:leading-7">
                     <PortableText value={data.solution} />
-                  </div>
-                </section>
-              ) : null}
-
-              {data.results && data.results.length > 0 ? (
-                <section className="mb-10">
-                  <h2 className="text-2xl font-bold text-white mb-4">
-                    Results
-                  </h2>
-                  <div className="prose prose-invert max-w-none prose-headings:mt-6 prose-headings:mb-3 prose-ul:mt-4 prose-li:my-2 prose-li:leading-7">
-                    <PortableText value={data.results} />
                   </div>
                 </section>
               ) : null}
