@@ -10,8 +10,7 @@ const query = `*[_type=="caseStudy"]{
   serviceCategory,
   shortDescription,
   thumbnail,
-  "slug": slug.current,
-  technologiesUsed
+  "slug": slug.current
 } | order(_createdAt desc)`;
 
 type CaseStudyListItem = {
@@ -20,7 +19,6 @@ type CaseStudyListItem = {
   shortDescription?: string;
   thumbnail?: unknown;
   slug: string;
-  technologiesUsed?: string[];
 };
 
 export default async function CaseStudiesPage() {
@@ -139,14 +137,6 @@ export default async function CaseStudiesPage() {
 
               <div className="mt-5">
                 <div className="mb-3 flex flex-wrap gap-2">
-                  {study.technologiesUsed?.map((tag, i) => (
-                    <span
-                      key={`${study.slug}-tag-${i}`}
-                      className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-white backdrop-blur"
-                    >
-                      {tag}
-                    </span>
-                  ))}
                   {study.serviceCategory ? (
                     <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-white backdrop-blur">
                       {study.serviceCategory}

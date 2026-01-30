@@ -23,6 +23,7 @@ const query = `*[_type=="caseStudy" && slug.current == $slug][0]{
   challenges,
   solution,
   technologiesUsed,
+  keyResults,
   seoTitle,
   seoDescription
 }`;
@@ -41,6 +42,7 @@ type CaseStudy = {
   challenges?: PortableTextBlock[];
   solution?: PortableTextBlock[];
   technologiesUsed?: string[];
+  keyResults?: string[];
   seoTitle?: string;
   seoDescription?: string;
 };
@@ -186,6 +188,24 @@ export default async function CaseStudyPage({
                           className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs text-white"
                         >
                           {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                {data.keyResults && data.keyResults.length > 0 ? (
+                  <div className="mt-6">
+                    <h3 className="text-sm font-semibold text-white mb-2.5">
+                      Key Results
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {data.keyResults.map((result, i) => (
+                        <span
+                          key={`result-${i}`}
+                          className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-xs text-white"
+                        >
+                          {result}
                         </span>
                       ))}
                     </div>
