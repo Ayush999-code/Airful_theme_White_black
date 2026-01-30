@@ -3,6 +3,7 @@ import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { Container } from "@/components/ui/container";
 import { urlFor } from "@/sanity/lib/image";
+import { isConfigured } from "@/sanity/env";
 
 const query = `*[_type=="caseStudy"]{
   title,
@@ -25,13 +26,27 @@ type CaseStudyListItem = {
 };
 
 export default async function CaseStudiesPage() {
-  const caseStudies = await client.fetch<CaseStudyListItem[]>(query);
+  let caseStudies: CaseStudyListItem[] = [];
+  
+  try {
+    if (isConfigured()) {
+      caseStudies = await client.fetch<CaseStudyListItem[]>(query);
+    }
+  } catch (error) {
+    console.error('Failed to fetch case studies:', error);
+    caseStudies = [];
+  }
 
   return (
     <section className="py-24">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {caseStudies.map((study) => (
+        {caseStudies.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-zinc-400">Case studies loading...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {caseStudies.map((study) => (
             <Link
               key={study.slug}
               href={`/case-studies/${study.slug}`}
@@ -97,7 +112,8 @@ export default async function CaseStudiesPage() {
               </div>
             </Link>
           ))}
-        </div>
+          </div>
+        )}
       </Container>
     </section>
   );

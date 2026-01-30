@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import { Container } from "@/components/ui/container";
 import { PortableText } from "@portabletext/react";
 import CTA from "@/components/sections/cta";
+import { isConfigured } from "@/sanity/env";
 import type { Metadata } from "next";
 import type { PortableTextBlock } from "@portabletext/types";
 
@@ -71,15 +72,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug: rawSlug } = await params;
   const slug = normalizeSlug(rawSlug);
-  if (!slug) return {};
+  if (!slug || !isConfigured()) return {};
 
-  const data = await sanity.fetch<CaseStudyMeta | null>(metadataQuery, { slug });
-  if (!data) return {};
+  try {
+    const data = await sanity.fetch<CaseStudyMeta | null>(metadataQuery, { slug });
+    if (!data) return {};
 
-  return {
-    title: data.seoTitle || data.title,
-    description: data.seoDescription || data.shortDescription,
-  };
+    return {
+      title: data.seoTitle || data.title,
+      description: data.seoDescription || data.shortDescription,
+    };
+  } catch (error) {
+    console.error('Failed to fetch case study metadata:', error);
+    return {};
+  }
 }
 
 export default async function CaseStudyPage({
@@ -97,7 +103,20 @@ export default async function CaseStudyPage({
     );
   }
 
-  const data = await sanity.fetch<CaseStudy | null>(query, { slug });
+  if (!isConfigured()) {
+    return (
+      <div className="pt-32 text-center text-zinc-400">
+        Case study not available
+      </div>
+    );
+  }
+
+  let data: CaseStudy | null = null;
+  try {
+    data = await sanity.fetch<CaseStudy | null>(query, { slug });
+  } catch (error) {
+    console.error('Failed to fetch case study:', error);
+  }
 
   if (!data) {
     return (
