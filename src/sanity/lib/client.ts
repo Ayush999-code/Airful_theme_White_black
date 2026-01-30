@@ -5,7 +5,8 @@ const config = {
   projectId: projectId || "dummy",
   dataset: dataset || "dummy",
   apiVersion: apiVersion,
-  useCdn: true,
+  useCdn: false, // Disable CDN to ensure consistent published data fetching
+  perspective: "published" as const, // Explicitly query published documents
 };
 
 export const client = createClient(config);

@@ -9,5 +9,12 @@ export const projectId =
 
 // Runtime check - only throw in functions that use these values
 export function isConfigured(): boolean {
-  return !!(projectId && dataset)
+  const configured = !!(projectId && dataset);
+  if (!configured && (process.env.NODE_ENV === 'development' || process.env.VERCEL)) {
+    console.warn('[Sanity] Configuration incomplete:', {
+      projectId: projectId ? '✓' : '✗ missing NEXT_PUBLIC_SANITY_PROJECT_ID',
+      dataset: dataset ? '✓' : '✗ missing NEXT_PUBLIC_SANITY_DATASET',
+    });
+  }
+  return configured;
 }
