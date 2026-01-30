@@ -1,9 +1,10 @@
+
 import type { Metadata } from "next";
+
 import { Geist, Geist_Mono, Poppins, Raleway } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ScrollEffects } from "@/components/ui/scroll-effects";
-import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { CtaPlacement } from "@/components/layout/cta-placement";
 import "./globals.css";
 
@@ -71,7 +72,6 @@ export default function RootLayout({
       >
         <ScrollEffects />
         <Header />
-        <Breadcrumbs />
         <main>{children}</main>
         <CtaPlacement />
         <Footer />
