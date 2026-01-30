@@ -27,6 +27,7 @@ type CaseStudyListItem = {
 
 export default async function CaseStudiesPage() {
   let caseStudies: CaseStudyListItem[] = [];
+  let hasError = false;
   
   try {
     if (isConfigured()) {
@@ -34,15 +35,32 @@ export default async function CaseStudiesPage() {
     }
   } catch (error) {
     console.error('Failed to fetch case studies:', error);
-    caseStudies = [];
+    hasError = true;
   }
 
   return (
     <section className="py-24">
       <Container>
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold text-white mb-4">Case Studies</h1>
+          <p className="text-lg text-zinc-400">
+            Explore how we've helped businesses transform through strategic solutions.
+          </p>
+        </div>
+
         {caseStudies.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-zinc-400">Case studies loading...</p>
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-12 text-center">
+            {hasError ? (
+              <>
+                <p className="text-zinc-400 mb-2">Unable to load case studies</p>
+                <p className="text-sm text-zinc-500">Please try again later.</p>
+              </>
+            ) : (
+              <>
+                <p className="text-zinc-300 mb-2">No case studies available yet</p>
+                <p className="text-sm text-zinc-500">Check back soon for our latest work.</p>
+              </>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
