@@ -149,7 +149,7 @@ export default function BlogPostPage() {
               </Link>
               <Link href="/blog">
                 <Button variant="outline" size="lg" className="group">
-                  More Articles
+                  More Article
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>

@@ -83,7 +83,7 @@ export function Hero() {
             </Link>
             <Link href="/case-studies">
               <Button variant="outline" size="lg">
-                View Our Workgit push origin main
+                View Our Work
               </Button>
             </Link>
           </motion.div>
