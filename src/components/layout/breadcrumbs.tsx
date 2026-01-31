@@ -7,8 +7,6 @@ import { getServiceBySlug } from "@/data/services";
 import { getJobBySlug } from "@/data/jobs";
 import { caseStudiesData } from "@/data/case-studies";
 
-const staticBreadcrumbs: { label: string; href?: string }[] | undefined = undefined;
-
 export function Breadcrumbs() {
   const pathname = usePathname();
 
