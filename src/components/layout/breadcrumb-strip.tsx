@@ -1,7 +1,13 @@
 import { Container } from "@/components/ui/container";
+import Link from "next/link";
+
+type BreadcrumbItem = {
+  label: string;
+  href?: string;
+};
 
 type BreadcrumbStripProps = {
-  items: string[];
+  items: BreadcrumbItem[];
 };
 
 export function BreadcrumbStrip({ items }: BreadcrumbStripProps) {
@@ -12,8 +18,14 @@ export function BreadcrumbStrip({ items }: BreadcrumbStripProps) {
           <nav aria-label="Breadcrumb">
             <p className="text-sm font-medium font-sans" style={{ color: "#000000" }}>
               {items.map((item, index) => (
-                <span key={`${item}-${index}`}>
-                  {item}
+                <span key={`${item.label}-${index}`}>
+                  {item.href ? (
+                    <Link href={item.href} className="hover:underline transition-colors">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span>{item.label}</span>
+                  )}
                   {index < items.length - 1 ? (
                     <span className="mx-2 text-[#8fe6df]">/</span>
                   ) : null}

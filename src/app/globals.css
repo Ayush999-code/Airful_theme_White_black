@@ -409,5 +409,17 @@ html.lux-js [data-lux-reveal].is-visible {
 
 /*    Ayush css  */
 
+/* Service Detail Page - Scoped Icon Styling */
+.service-detail .service-icon-container {
+  background: #fff;
+  border-radius: 100px;
+  padding: 8px;
+  display: inline-block;
+}
+
+.service-detail .service-icon-container img {
+  border-radius: calc(100px - 8px);
+}
+
 
 

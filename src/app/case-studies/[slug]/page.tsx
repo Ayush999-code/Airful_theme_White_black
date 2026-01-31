@@ -2,9 +2,9 @@ import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { Container } from "@/components/ui/container";
 import { PortableText } from "@portabletext/react";
+import { EnquiryForm } from "@/components/ui/enquiry-form";
 import CTA from "@/components/sections/cta";
 import { isConfigured } from "@/sanity/env";
-import { BreadcrumbStrip } from "@/components/layout/breadcrumb-strip";
 import type { Metadata } from "next";
 import type { PortableTextBlock } from "@portabletext/types";
 
@@ -33,7 +33,8 @@ const metadataQuery = `*[_type=="caseStudy" && slug.current == $slug][0]{
   seoTitle,
   seoDescription,
   title,
-  shortDescription
+  s
+  hortDescription
 }`;
 
 type CaseStudy = {
@@ -129,8 +130,6 @@ export default async function CaseStudyPage({
 
   return (
     <>
-      <BreadcrumbStrip items={["Home", "Case Studies", data.title]} />
-
       <section className="pt-[80px] pb-12">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_380px]">
@@ -225,39 +224,11 @@ export default async function CaseStudyPage({
                 ) : null}
               </div>
 
-              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6">
-                <h3 className="text-xl font-semibold text-white mb-4">
-                  Submit Application
-                </h3>
-                <form className="space-y-4">
-                  <div>
-                    <label className="block text-sm text-zinc-400 mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      className="w-full rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-[#2b9f9a]"
-                      placeholder="you@company.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-zinc-400 mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      rows={4}
-                      className="w-full rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-[#2b9f9a]"
-                      placeholder="Tell us about your project..."
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full rounded-full bg-gradient-to-r from-[#d5f5f1] via-[#8ddbd4] to-[#2b9f9a] px-5 py-3 text-sm font-semibold text-black shadow-[0_14px_40px_rgba(34,119,116,0.35)] transition hover:shadow-[0_22px_55px_rgba(34,119,116,0.4)]"
-                  >
-                    Enquire Now
-                  </button>
-                </form>
-              </div>
+              {/* Enquiry Form */}
+              <EnquiryForm
+                title="Submit Application"
+                buttonText="Enquire Now"
+              />
             </aside>
           </div>
         </Container>

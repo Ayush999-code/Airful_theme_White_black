@@ -10,6 +10,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getBlogPostBySlug, blogPosts } from "@/data/blog-posts";
 import ReactMarkdown from "react-markdown";
 
+
 export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;

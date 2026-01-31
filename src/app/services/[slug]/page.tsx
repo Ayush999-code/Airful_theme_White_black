@@ -1,152 +1,178 @@
-"use client";
-
-import { useParams } from "next/navigation";
-import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
+import { client } from "@/sanity/lib/client";
 import { Container } from "@/components/ui/container";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
-import { getServiceBySlug } from "@/data/services";
+import { urlFor } from "@/sanity/lib/image";
+import { PortableText } from "@portabletext/react";
+import { EnquiryForm } from "@/components/ui/enquiry-form";
+import CTA from "@/components/sections/cta";
+import { isConfigured } from "@/sanity/env";
+import type { Metadata } from "next";
+import type { PortableTextBlock } from "@portabletext/types";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-export default function ServiceDetailPage() {
-  const params = useParams();
-  const slug = params.slug as string;
-  const service = getServiceBySlug(slug);
+export const dynamic = "force-dynamic";
 
-  if (!service) {
+const sanity = client.withConfig({
+  useCdn: false,
+  token: process.env.SANITY_API_TOKEN,
+  perspective: process.env.SANITY_API_TOKEN ? "previewDrafts" : "published",
+});
+
+const query = `*[_type=="service" && slug.current == $slug][0]{
+  title,
+  icon,
+  category,
+  content,
+  featuredImage,
+  seoTitle,
+  seoDescription
+}`;
+
+const metadataQuery = `*[_type=="service" && slug.current == $slug][0]{
+  seoTitle,
+  title
+}`;
+
+type Service = {
+  title: string;
+  icon?: SanityImageSource;
+  category?: string;
+  content?: PortableTextBlock[];
+  featuredImage?: unknown;
+  seoTitle?: string;
+  seoDescription?: string;
+};
+
+type ServiceMeta = {
+  seoTitle?: string;
+  title?: string;
+};
+
+const normalizeSlug = (input: string | string[] | undefined) => {
+  if (!input) return "";
+  const raw = Array.isArray(input) ? input[0] : input;
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string | string[] }>;
+}): Promise<Metadata> {
+  const { slug: rawSlug } = await params;
+  const slug = normalizeSlug(rawSlug);
+  if (!slug || !isConfigured()) return {};
+
+  try {
+    const data = await sanity.fetch<ServiceMeta | null>(metadataQuery, { slug });
+    if (!data) return {};
+
+    return {
+      title: data.seoTitle || data.title,
+      description: data.seoTitle ? undefined : data.title,
+    };
+  } catch (error) {
+    console.error('Failed to fetch service metadata:', error);
+    return {};
+  }
+}
+
+export default async function ServicePage({
+  params,
+}: {
+  params: Promise<{ slug: string | string[] }>;
+}) {
+  const { slug: rawSlug } = await params;
+  const slug = normalizeSlug(rawSlug);
+  if (!slug) {
     return (
-      <>
-        <section className="pt-32 pb-16 min-h-screen">
-          <Container>
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-white mb-4">
-                Service Not Found
-              </h1>
-              <p className="text-zinc-400 mb-8">
-                The service you&apos;re looking for doesn&apos;t exist.
-              </p>
-              <Link href="/services">
-                <Button variant="primary">View All Services</Button>
-              </Link>
-            </div>
-          </Container>
-        </section>
-      </>
+      <div className="pt-32 text-center text-zinc-400">
+        Service not found
+      </div>
+    );
+  }
+
+  if (!isConfigured()) {
+    return (
+      <div className="pt-32 text-center text-zinc-400">
+        Service not available
+      </div>
+    );
+  }
+
+  let data: Service | null = null;
+  try {
+    data = await sanity.fetch<Service | null>(query, { slug });
+  } catch (error) {
+    console.error('Failed to fetch service:', error);
+  }
+
+  if (!data) {
+    return (
+      <div className="pt-32 text-center text-zinc-400">
+        Service not found
+      </div>
     );
   }
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 gradient-spotlight" />
-        <Container className="relative z-10">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Services
-          </Link>
-
-          <Badge variant="glow" className="mb-4">
-            {service.category}
-          </Badge>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6"
-          >
-            {service.title}
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="max-w-3xl"
-          >
-            {service.description.split("\n\n").map((paragraph, index) => (
-              <p key={index} className="text-lg text-zinc-400 mb-4">
-                {paragraph}
-              </p>
-            ))}
-          </motion.div>
-        </Container>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 border-t border-zinc-800">
+      <section className="pt-[80px] pb-12 service-detail">
         <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Badge variant="outline" className="mb-4">
-              What We Offer
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">
-              Service Features
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {service.features.map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-colors"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                      <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-white mb-2">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm text-zinc-400">
-                        {feature.description}
-                      </p>
-                    </div>
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_380px]">
+            {/* LEFT */}
+            <div>
+<h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+                {data.title}
+              </h1>
+        
+              {/* Service Category - Single Line Format */}
+              {data.category && (
+                <p className="text-sm text-zinc-500 mb-8">
+                  Service Category: <span className="text-cyan-400 capitalize">{data.category}</span>
+                </p>
+              )}
+              
+              <div className="h-px w-full bg-zinc-800 mb-10" />
+
+              {data.content && data.content.length > 0 ? (
+                <section className="mb-14">
+                  <div className="prose prose-invert max-w-none prose-headings:mt-6 prose-headings:mb-3 prose-ul:mt-4 prose-li:my-2 prose-li:leading-7">
+                    <PortableText value={data.content} />
                   </div>
-                </motion.div>
-              ))}
+                </section>
+              ) : null}
             </div>
-          </motion.div>
-        </Container>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-24 border-t border-zinc-800">
-        <Container>
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
-              Let&apos;s discuss how our {service.title.toLowerCase()} services
-              can help transform your business.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button variant="primary" size="lg">
-                  Schedule a Discovery Meeting
-                </Button>
-              </Link>
-              <Link href="/case-studies">
-                <Button variant="outline" size="lg">
-                  View Our Work
-                </Button>
-              </Link>
-            </div>
+            {/* RIGHT */}
+            <aside className="lg:sticky lg:top-28 h-fit space-y-6">
+              {/* Enquiry Form */}
+              <EnquiryForm
+                title="Enquire About This Service"
+                buttonText="Enquire Now"
+              />
+
+              {/* Back to Services Link */}
+              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6">
+                <Link
+                  href="/services"
+                  className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition"
+                >
+                  ← Back to Services
+                </Link>
+              </div>
+            </aside>
           </div>
         </Container>
       </section>
+
+      <CTA />
     </>
   );
 }
+

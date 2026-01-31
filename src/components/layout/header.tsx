@@ -12,16 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  {
-    name: "Services",
-    href: "/services",
-    children: [
-      { name: "Digital Strategy", href: "/services/digital-strategy" },
-      { name: "Web Development", href: "/services/web-development" },
-      { name: "AI Implementation", href: "/services/ai-implementation" },
-      { name: "Marketing Automation", href: "/services/marketing-automation" },
-    ],
-  },
+  { name: "Services", href: "/services" },
   { name: "Case Studies", href: "/case-studies" },
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
