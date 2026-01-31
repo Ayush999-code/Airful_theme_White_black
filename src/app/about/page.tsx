@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Target, Users, Zap } from "lucide-react";
+import { MentalHealthHero } from "@/components/sections/mental-health-hero";
 
 
 const values = [
@@ -39,54 +40,8 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="pt-20 lg:pt-24 pb-16 lg:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(600px_320px_at_20%_-10%,rgba(143,230,223,0.12),transparent_60%)]" />
-        <Container className="relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="max-w-2xl">
-              <Badge variant="outline" className="mb-5">
-                About Us
-              </Badge>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5">
-                We build calm, scalable systems for teams that lead.
-              </h1>
-              <p className="text-lg sm:text-xl text-zinc-400 leading-relaxed">
-                Airful is a digital transformation studio. We partner with
-                founders and operators to replace complexity with clarity—so
-                strategy, operations, and technology move as one.
-              </p>
-            </div>
-            <div className="relative">
-              <div className="absolute -inset-6 bg-gradient-to-br from-[#8fe6df]/15 via-transparent to-transparent blur-2xl" />
-              <div className="relative rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 backdrop-blur-sm lux-card">
-                <p className="text-white text-lg leading-relaxed mb-6">
-                  &quot;We care about the quiet work: alignment, systems, and
-                  consistent execution. That&apos;s where transformation sticks.&quot;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#8fe6df] to-[#227774] flex items-center justify-center">
-                    <img
-                      src="/logoairful.png"
-                      alt="Airful"
-                      className="w-6 h-6 object-contain"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">
-                      Airful Leadership
-                    </p>
-                    <p className="text-zinc-500 text-xs">
-                      Digital Transformation Studio
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+      {/* Mental Health Hero Section */}
+      <MentalHealthHero />
 
       {/* Marquee Strip */}
       <section className="relative overflow-hidden border-y border-zinc-900/80 bg-black">
@@ -184,8 +139,8 @@ export default function AboutPage() {
               <div className="absolute -inset-6 bg-gradient-to-br from-[#8fe6df]/15 via-transparent to-transparent blur-2xl" />
               <div className="relative rounded-3xl border border-zinc-800/80 bg-gradient-to-br from-[#0b1e1d] via-black to-black p-10 shadow-[0_30px_90px_rgba(2,6,23,0.6)]">
                 <p className="text-2xl font-semibold text-white leading-relaxed mb-8">
-                  &quot;To create magic, one needs four things: purity of intent,
-                  level of awareness, focus of will, and quality of character.&quot;
+                  "To create magic, one needs four things: purity of intent,
+                  level of awareness, focus of will, and quality of character."
                 </p>
                 <p className="text-sm font-semibold text-[#8fe6df]">
                   Jiddu Krishnamurti
@@ -285,3 +240,4 @@ export default function AboutPage() {
     </>
   );
 }
+
