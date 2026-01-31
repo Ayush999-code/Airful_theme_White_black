@@ -7,23 +7,7 @@ import { getServiceBySlug } from "@/data/services";
 import { getJobBySlug } from "@/data/jobs";
 import { caseStudiesData } from "@/data/case-studies";
 
-type BreadcrumbItem = {
-  label: string;
-  href?: string;
-};
-
-const staticBreadcrumbs: Record<string, BreadcrumbItem[]> = {
-  "/about": [{ label: "Home", href: "/" }, { label: "About" }],
-  "/blog": [{ label: "Home", href: "/" }, { label: "Blog" }],
-  "/careers": [{ label: "Home", href: "/" }, { label: "Careers" }],
-  "/case-studies": [{ label: "Home", href: "/" }, { label: "Case Studies" }],
-  "/contact": [{ label: "Home", href: "/" }, { label: "Contact" }],
-  "/cookies-policy": [{ label: "Home", href: "/" }, { label: "Cookies Policy" }],
-  "/privacy-policy": [{ label: "Home", href: "/" }, { label: "Privacy Policy" }],
-  "/services": [{ label: "Home", href: "/" }, { label: "Services" }],
-  "/testimonials": [{ label: "Home", href: "/" }, { label: "Testimonials" }],
-  "/terms-and-conditions": [{ label: "Home", href: "/" }, { label: "Terms and Conditions" }],
-};
+const staticBreadcrumbs: { label: string; href?: string }[] | undefined = undefined;
 
 export function Breadcrumbs() {
   const pathname = usePathname();
@@ -32,8 +16,22 @@ export function Breadcrumbs() {
     return null;
   }
 
-  if (staticBreadcrumbs[pathname]) {
-    return <BreadcrumbStrip items={staticBreadcrumbs[pathname]} />;
+  // Define static breadcrumbs by path
+  const staticBreadcrumbMap: Record<string, { label: string; href?: string }[]> = {
+    "/about": [{ label: "Home", href: "/" }, { label: "About" }],
+    "/blog": [{ label: "Home", href: "/" }, { label: "Blog" }],
+    "/careers": [{ label: "Home", href: "/" }, { label: "Careers" }],
+    "/case-studies": [{ label: "Home", href: "/" }, { label: "Case Studies" }],
+    "/contact": [{ label: "Home", href: "/" }, { label: "Contact" }],
+    "/cookies-policy": [{ label: "Home", href: "/" }, { label: "Cookies Policy" }],
+    "/privacy-policy": [{ label: "Home", href: "/" }, { label: "Privacy Policy" }],
+    "/services": [{ label: "Home", href: "/" }, { label: "Services" }],
+    "/testimonials": [{ label: "Home", href: "/" }, { label: "Testimonials" }],
+    "/terms-and-conditions": [{ label: "Home", href: "/" }, { label: "Terms and Conditions" }],
+  };
+
+  if (staticBreadcrumbMap[pathname]) {
+    return <BreadcrumbStrip items={staticBreadcrumbMap[pathname]} />;
   }
 
   if (pathname.startsWith("/blog/")) {
@@ -66,3 +64,4 @@ export function Breadcrumbs() {
 
   return null;
 }
+
