@@ -86,5 +86,12 @@ export const caseStudy = defineType({
       title: "SEO Description",
       type: "text",
     }),
+
+    defineField({
+      name: "websiteUrl",
+      title: "Website URL",
+      type: "url",
+      description: "Optional URL to the live website for this case study",
+    }),
   ],
 });

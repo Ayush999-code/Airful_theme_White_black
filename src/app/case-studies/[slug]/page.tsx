@@ -24,6 +24,7 @@ const query = `*[_type=="caseStudy" && slug.current == $slug][0]{
   solution,
   technologiesUsed,
   keyResults,
+  websiteUrl,
   seoTitle,
   seoDescription
 }`;
@@ -43,6 +44,7 @@ type CaseStudy = {
   solution?: PortableTextBlock[];
   technologiesUsed?: string[];
   keyResults?: string[];
+  websiteUrl?: string;
   seoTitle?: string;
   seoDescription?: string;
 };
@@ -163,6 +165,16 @@ export default async function CaseStudyPage({
                   <div className="prose prose-invert max-w-none prose-headings:mt-6 prose-headings:mb-3 prose-ul:mt-4 prose-li:my-2 prose-li:leading-7">
                     <PortableText value={data.solution} />
                   </div>
+                  {data.websiteUrl ? (
+                    <a
+                      href={data.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex mt-6 rounded-full bg-gradient-to-r from-[#d5f5f1] via-[#8ddbd4] to-[#2b9f9a] px-6 py-3 text-sm font-semibold text-black shadow-[0_14px_40px_rgba(34,119,116,0.35)] transition hover:shadow-[0_22px_55px_rgba(34,119,116,0.4)]"
+                    >
+                      View Project
+                    </a>
+                  ) : null}
                 </section>
               ) : null}
             </div>
