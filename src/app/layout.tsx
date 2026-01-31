@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ScrollEffects } from "@/components/ui/scroll-effects";
 import { CtaPlacement } from "@/components/layout/cta-placement";
-import { BreadcrumbWrapper } from "@/components/layout/breadcrumb-wrapper";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -73,7 +73,7 @@ export default function RootLayout({
       >
         <ScrollEffects />
         <Header />
-        <BreadcrumbWrapper />
+        <Breadcrumbs />
         <main>{children}</main>
         <CtaPlacement />
         <Footer />
