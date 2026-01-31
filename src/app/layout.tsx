@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
+git status
 const poppins = Poppins({
   variable: "--font-heading",
   subsets: ["latin"],
