@@ -11,6 +11,6 @@
 - [x] Update Privacy Policy page
 - [x] Update Terms & Conditions page
 - [x] Update Cookies Policy page
-- [ ] Verify build passes
-- [ ] Commit changes
+- [x] Verify build passes
+- [x] Commit and push changes
 
