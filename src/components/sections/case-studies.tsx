@@ -18,7 +18,7 @@ type CaseStudyCard = {
   _id?: string;
 };
 
-// Fallback static data
+// Fallback static data - uses slugs matching Sanity format
 const staticCaseStudies: CaseStudyCard[] = [
   {
     title: "Alistair Langer",
@@ -86,7 +86,7 @@ export function CaseStudies() {
               if (!slugCurrent) return null;
               return {
                 title: study.title,
-                href: `/case-studies/${encodeURIComponent(slugCurrent)}`,
+                href: `/case-studies/${slugCurrent}`,
                 thumbnail: study.thumbnail ? urlFor(study.thumbnail).width(800).height(600).fit("crop").url() : undefined,
                 _id: study._id,
               };

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { Container } from "@/components/ui/container";
 import { PortableText } from "@portabletext/react";
@@ -15,6 +14,9 @@ const sanity = client.withConfig({
   token: process.env.SANITY_API_TOKEN,
   perspective: process.env.SANITY_API_TOKEN ? "previewDrafts" : "published",
 });
+
+// Query to get all case study slugs for generateStaticParams
+const slugsQuery = `*[_type == "caseStudy"]{ "slug": slug.current }`;
 
 const query = `*[_type=="caseStudy" && slug.current == $slug][0]{
   title,
@@ -33,8 +35,7 @@ const metadataQuery = `*[_type=="caseStudy" && slug.current == $slug][0]{
   seoTitle,
   seoDescription,
   title,
-  s
-  hortDescription
+  shortDescription
 }`;
 
 type CaseStudy = {
@@ -57,15 +58,36 @@ type CaseStudyMeta = {
   shortDescription?: string;
 };
 
-const normalizeSlug = (input: string | string[] | undefined) => {
+// Simplified slug normalization - Next.js App Router already decodes URL parameters
+const normalizeSlug = (input: string | string[] | undefined): string => {
   if (!input) return "";
-  const raw = Array.isArray(input) ? input[0] : input;
-  try {
-    return decodeURIComponent(raw);
-  } catch {
-    return raw;
-  }
+  // App Router passes the slug as a string (or array which we join), already decoded
+  return Array.isArray(input) ? input[0] : input;
 };
+
+// Generate static params for all case studies at build time
+// This ensures Vercel recognizes all routes and improves performance
+export async function generateStaticParams() {
+  if (!isConfigured()) {
+    return [];
+  }
+
+  try {
+    const slugs = await client.fetch<{ slug: string }[]>(slugsQuery);
+    const isVercel = !!process.env.VERCEL;
+    
+    if (isVercel) {
+      console.log('[CaseStudy] generateStaticParams found', slugs.length, 'slugs');
+    }
+    
+    return slugs.map((item) => ({
+      slug: item.slug,
+    }));
+  } catch (error) {
+    console.error('[CaseStudy] Failed to generate static params:', error);
+    return [];
+  }
+}
 
 export async function generateMetadata({
   params,
@@ -74,6 +96,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug: rawSlug } = await params;
   const slug = normalizeSlug(rawSlug);
+  
   if (!slug || !isConfigured()) return {};
 
   try {
@@ -97,6 +120,7 @@ export default async function CaseStudyPage({
 }) {
   const { slug: rawSlug } = await params;
   const slug = normalizeSlug(rawSlug);
+  
   if (!slug) {
     return (
       <div className="pt-32 text-center text-zinc-400">
@@ -123,7 +147,7 @@ export default async function CaseStudyPage({
   if (!data) {
     return (
       <div className="pt-32 text-center text-zinc-400">
-        Case study not found
+        Case study not found: {slug}
       </div>
     );
   }
