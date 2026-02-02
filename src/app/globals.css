@@ -378,29 +378,38 @@ html.lux-js [data-lux-reveal].is-visible {
 }
 
 /* Legal Pages - White Box Text Color Fix */
-/* Force pure black text ONLY inside white content box with HIGH specificity */
+.bg-white .prose,
 .bg-white .prose p,
+.bg-white .prose strong,
 .bg-white .prose h1,
 .bg-white .prose h2,
 .bg-white .prose h3,
-.bg-white .prose h4,
-.bg-white .prose h5,
-.bg-white .prose h6,
-.bg-white .prose li,
-.bg-white .prose strong,
-.bg-white .prose a,
-.bg-white .prose div {
+.bg-white .prose li {
   color: #000 !important;
 }
 
-/* Cookies Policy - Only title and last updated black, body unchanged */
-/* Higher specificity to override prose black text */
-body .bg-white .cookies-content,
-body .bg-white .cookies-content p,
-body .bg-white .cookies-content h2,
-body .bg-white .cookies-content h3,
-body .bg-white .cookies-content ul,
-body .bg-white .cookies-content li {
-  color: inherit !important;
+.bg-white .prose h2 {
+  font-size: 21px;
+  font-weight: 500;
+  padding: 9px 0;
 }
 
+.bg-white .prose h3 {
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+
+.bg-white .prose ul li {
+  position: relative !important;
+}
+
+.bg-white .prose ul li::before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #000 !important;
+  left: 0;
+  top: 8px;
+  border-radius: 100px;
+}
