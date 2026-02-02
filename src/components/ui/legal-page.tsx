@@ -15,36 +15,40 @@ interface LegalPageProps {
 export function LegalPage({ title, lastUpdated, children, metadata }: LegalPageProps) {
   return (
     <>
-      {/* Banner Section - Dark background, minimal content */}
-      <header className="py-12 md:py-16 bg-black">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <Badge variant="outline" className="mb-4">
-              Legal
-            </Badge>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-              {title}
-            </h1>
-            <p className="text-zinc-400">Last Updated: {lastUpdated}</p>
-          </div>
-        </Container>
-      </header>
+      {/* Banner - Dark background, NO text (just spacing/background) */}
+      <div className="h-48 md:h-64 bg-zinc-950" />
 
-      {/* Content Section - White box with dark text */}
-      <section className="py-12 md:py-16 bg-zinc-100">
+      {/* White Box - Contains ALL text content */}
+      <div className="relative -mt-32 md:-mt-40 pb-16 md:pb-24">
         <Container>
           <div
-            className="mx-auto bg-white rounded-2xl shadow-sm"
+            className="mx-auto bg-white shadow-xl"
             style={{
               maxWidth: "1100px",
               width: "100%",
-              padding: "48px",
+              padding: "48px 48px 32px",
+              borderRadius: "16px",
             }}
           >
+            {/* Badge */}
+            <Badge className="bg-zinc-100 text-zinc-700 mb-4">Legal</Badge>
+
+            {/* Title */}
+            <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-3">
+              {title}
+            </h1>
+
+            {/* Last Updated */}
+            <p className="text-sm text-zinc-500 mb-8">Last Updated: {lastUpdated}</p>
+
+            {/* Divider */}
+            <div className="border-t border-zinc-200 mb-8" />
+
+            {/* Content */}
             <div className="prose prose-zinc max-w-none">{children}</div>
           </div>
         </Container>
-      </section>
+      </div>
     </>
   );
 }
