@@ -40,8 +40,10 @@ export function LegalPage({ title, lastUpdated, children, metadata }: LegalPageP
               borderRadius: "16px",
             }}
           >
-            {/* Content */}
-            <div className="prose prose-zinc max-w-none">{children}</div>
+            {/* Content - Force pure black text */}
+            <div className="prose prose-zinc max-w-none text-black prose-headings:text-black prose-p:text-black prose-li:text-black prose-strong:text-black prose-a:text-black">
+              {children}
+            </div>
           </div>
         </Container>
       </div>
