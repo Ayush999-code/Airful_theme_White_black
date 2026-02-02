@@ -377,3 +377,20 @@ html.lux-js [data-lux-reveal].is-visible {
   border-radius: calc(100px - 8px);
 }
 
+/* Legal Pages - White Box Text Color Fix */
+/* Force pure black text ONLY inside white content box with HIGH specificity */
+.bg-white .prose,
+.bg-white .prose p,
+.bg-white .prose h1,
+.bg-white .prose h2,
+.bg-white .prose h3,
+.bg-white .prose h4,
+.bg-white .prose h5,
+.bg-white .prose h6,
+.bg-white .prose li,
+.bg-white .prose strong,
+.bg-white .prose a,
+.bg-white .prose div {
+  color: #000 !important;
+}
+

@@ -15,32 +15,29 @@ interface LegalPageProps {
 export function LegalPage({ title, lastUpdated, children, metadata }: LegalPageProps) {
   return (
     <>
-      {/* Header Section - Dark background with black text */}
-      <header className="py-12 md:py-16 bg-zinc-950">
-        <Container>
-          <div className="max-w-4xl mx-auto text-zinc-900">
-            <Badge className="bg-zinc-100 text-zinc-700 mb-4">Legal</Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">
-              {title}
-            </h1>
-            <p className="text-sm">Last Updated: {lastUpdated}</p>
-          </div>
-        </Container>
-      </header>
-
-      {/* White Box - Contains ONLY policy content */}
+      {/* White Box - Contains ALL page content */}
       <div className="py-12 md:py-16">
         <Container>
           <div
             className="mx-auto bg-white shadow-xl"
             style={{
+              backgroundColor: "#ffffff",
               maxWidth: "1100px",
               width: "100%",
-              padding: "48px 48px 32px",
+              padding: "48px",
               borderRadius: "16px",
             }}
           >
-            {/* Content - Force pure black text */}
+            {/* Header Content - Inside white box with black text */}
+            <div className="mb-8">
+              <Badge className="bg-zinc-100 text-black mb-4">Legal</Badge>
+              <h1 className="text-3xl md:text-4xl font-bold mb-3 text-black">
+                {title}
+              </h1>
+              <p className="text-sm text-black">Last Updated: {lastUpdated}</p>
+            </div>
+
+            {/* Policy Body Content - Force pure black text */}
             <div className="prose prose-zinc max-w-none text-black prose-headings:text-black prose-p:text-black prose-li:text-black prose-strong:text-black prose-a:text-black">
               {children}
             </div>
