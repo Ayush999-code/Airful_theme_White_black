@@ -19,7 +19,6 @@ export function Hero() {
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 lux-section"
-      data-lux-reveal
     >
       {/* Background Effects */}
       <div className="absolute inset-0 hero-bg" />
@@ -41,7 +40,6 @@ export function Hero() {
 
           {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight"
@@ -57,7 +55,6 @@ export function Hero() {
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 text-xl sm:text-2xl text-zinc-400 max-w-2xl"
@@ -70,7 +67,6 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-10 flex flex-col sm:flex-row gap-4"
@@ -90,7 +86,6 @@ export function Hero() {
 
           {/* Trust Indicators */}
           <motion.div
-            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-16 pt-8 border-t border-zinc-800"

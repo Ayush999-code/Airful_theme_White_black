@@ -71,7 +71,7 @@ export function Outcomes() {
               key={outcome.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: index * 0.1 }}
               className="border-b border-zinc-800 last:border-b-0"
             >

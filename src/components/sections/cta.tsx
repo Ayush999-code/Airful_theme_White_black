@@ -22,7 +22,7 @@ export default function CTA() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm"
         >
           <div className="relative px-8 py-16 lg:px-16 lg:py-20 text-center">
