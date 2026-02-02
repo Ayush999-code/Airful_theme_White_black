@@ -10,16 +10,16 @@ export default function CookiesPolicyPage() {
   return (
     <LegalPage title="Cookies Policy" lastUpdated="May 1, 2025">
       <div className="cookies-content">
-        <p>This Cookies Policy explains how Airful uses cookies.</p>
+        <p>This Cookies Policy explain how Airful uses cookies.</p>
 
         <h2>1. What Are Cookies?</h2>
 
         <h2>2. Types of Cookies We Use</h2>
         <ul>
-          <li>Essential Cookies</li>
-          <li>Analytics Cookies</li>
-          <li>Preference Cookies</li>
-          <li>Marketing Cookies</li>
+          <li>Essential-Cookies</li>
+          <li>Analytics-Cookies</li>
+          <li>Preference-Cookies</li>
+          <li>Marketing-Cookies</li>
         </ul>
 
         <h2>3. How We Use Cookies</h2>
