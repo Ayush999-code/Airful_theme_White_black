@@ -15,6 +15,7 @@ type CaseStudyCard = {
   title: string;
   href: string;
   thumbnail?: string;
+  _id?: string;
 };
 
 // Fallback static data
@@ -79,11 +80,18 @@ export function CaseStudies() {
         const data = await client.fetch<SanityCaseStudy[]>(sanityQuery);
         if (data && data.length > 0) {
           // Map Sanity data to UI format
-          const mappedData = data.map((study) => ({
-            title: study.title,
-            href: `/case-studies/${study.slug?.current || "#"}`,
-            thumbnail: study.thumbnail ? urlFor(study.thumbnail).width(800).height(600).fit("crop").url() : undefined,
-          }));
+          const mappedData = data
+            .map((study) => {
+              const slugCurrent = study.slug?.current;
+              if (!slugCurrent) return null;
+              return {
+                title: study.title,
+                href: `/case-studies/${encodeURIComponent(slugCurrent)}`,
+                thumbnail: study.thumbnail ? urlFor(study.thumbnail).width(800).height(600).fit("crop").url() : undefined,
+                _id: study._id,
+              };
+            })
+            .filter(Boolean) as CaseStudyCard[];
           setCaseStudies(mappedData);
         }
       } catch (error) {
@@ -129,7 +137,7 @@ export function CaseStudies() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {caseStudies.map((study, index) => (
             <Link
-              key={study.href + index}
+              key={study._id ?? (study.href + index)}
               href={study.href}
               className="group block h-full rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 lux-card overflow-hidden"
             >

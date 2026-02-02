@@ -404,7 +404,7 @@ html.lux-js [data-lux-reveal].is-visible {
     color: #000;
 }
 .mx-auto.w-full.px-\[15px\].max-w-\[1450px\] h2 {
-    font-size: 21px;
+  
     font-weight: 500;
     padding-bottom: 10px;
     padding-top: 12px;
