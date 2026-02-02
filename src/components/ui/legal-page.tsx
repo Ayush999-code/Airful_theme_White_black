@@ -15,11 +15,21 @@ interface LegalPageProps {
 export function LegalPage({ title, lastUpdated, children, metadata }: LegalPageProps) {
   return (
     <>
-      {/* Banner - Dark background, NO text (just spacing/background) */}
-      <div className="h-48 md:h-64 bg-zinc-950" />
+      {/* Header Section - Dark background with black text */}
+      <header className="py-12 md:py-16 bg-zinc-950">
+        <Container>
+          <div className="max-w-4xl mx-auto text-zinc-900">
+            <Badge className="bg-zinc-100 text-zinc-700 mb-4">Legal</Badge>
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">
+              {title}
+            </h1>
+            <p className="text-sm">Last Updated: {lastUpdated}</p>
+          </div>
+        </Container>
+      </header>
 
-      {/* White Box - Contains ALL text content */}
-      <div className="relative -mt-32 md:-mt-40 pb-16 md:pb-24">
+      {/* White Box - Contains ONLY policy content */}
+      <div className="py-12 md:py-16">
         <Container>
           <div
             className="mx-auto bg-white shadow-xl"
@@ -30,24 +40,8 @@ export function LegalPage({ title, lastUpdated, children, metadata }: LegalPageP
               borderRadius: "16px",
             }}
           >
-            {/* Badge */}
-            <Badge className="bg-zinc-100 text-zinc-700 mb-4">Legal</Badge>
-
-            {/* Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-3">
-              {title}
-            </h1>
-
-            {/* Last Updated */}
-            <p className="text-sm text-zinc-500 mb-8">Last Updated: {lastUpdated}</p>
-
-            {/* Divider */}
-            <div className="border-t border-zinc-200 mb-8" />
-
-            {/* Content - Force dark text colors */}
-            <div className="prose prose-zinc max-w-none prose-headings:text-zinc-900 prose-p:text-zinc-800 prose-li:text-zinc-800 prose-strong:text-zinc-900 prose-a:text-zinc-900 prose-a:underline hover:prose-a:text-zinc-700">
-              {children}
-            </div>
+            {/* Content */}
+            <div className="prose prose-zinc max-w-none">{children}</div>
           </div>
         </Container>
       </div>
