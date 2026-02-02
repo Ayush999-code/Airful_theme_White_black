@@ -15,8 +15,8 @@ interface LegalPageProps {
 export function LegalPage({ title, lastUpdated, children, metadata }: LegalPageProps) {
   return (
     <>
-      {/* Document-style header */}
-      <header className="py-12 md:py-16">
+      {/* Banner Section - Dark background, minimal content */}
+      <header className="py-12 md:py-16 bg-black">
         <Container>
           <div className="max-w-4xl mx-auto">
             <Badge variant="outline" className="mb-4">
@@ -30,14 +30,18 @@ export function LegalPage({ title, lastUpdated, children, metadata }: LegalPageP
         </Container>
       </header>
 
-      {/* Divider */}
-      <div className="border-t border-zinc-800" />
-
-      {/* Content */}
-      <section className="py-12">
+      {/* Content Section - White box with dark text */}
+      <section className="py-12 md:py-16 bg-zinc-100">
         <Container>
-          <div className="max-w-4xl mx-auto prose prose-invert prose-zinc max-w-none">
-            {children}
+          <div
+            className="mx-auto bg-white rounded-2xl shadow-sm"
+            style={{
+              maxWidth: "1100px",
+              width: "100%",
+              padding: "48px",
+            }}
+          >
+            <div className="prose prose-zinc max-w-none">{children}</div>
           </div>
         </Container>
       </section>
