@@ -9,36 +9,38 @@ export const metadata = generateMetadata({
 export default function CookiesPolicyPage() {
   return (
     <LegalPage title="Cookies Policy" lastUpdated="May 1, 2025">
-      <p>This Cookies Policy explains how Airful uses cookies.</p>
+      <div className="cookies-content">
+        <p>This Cookies Policy explains how Airful uses cookies.</p>
 
-      <h2>1. What Are Cookies?</h2>
+        <h2>1. What Are Cookies?</h2>
 
-      <h2>2. Types of Cookies We Use</h2>
-      <ul>
-        <li>Essential Cookies</li>
-        <li>Analytics Cookies</li>
-        <li>Preference Cookies</li>
-        <li>Marketing Cookies</li>
-      </ul>
+        <h2>2. Types of Cookies We Use</h2>
+        <ul>
+          <li>Essential Cookies</li>
+          <li>Analytics Cookies</li>
+          <li>Preference Cookies</li>
+          <li>Marketing Cookies</li>
+        </ul>
 
-      <h2>3. How We Use Cookies</h2>
-      <ul>
-        <li>Website functionality</li>
-        <li>Analytics</li>
-        <li>Preferences</li>
-        <li>Marketing</li>
-      </ul>
+        <h2>3. How We Use Cookies</h2>
+        <ul>
+          <li>Website functionality</li>
+          <li>Analytics</li>
+          <li>Preferences</li>
+          <li>Marketing</li>
+        </ul>
 
-      <h2>4. Managing Cookies</h2>
-      <p>Users can control cookies via browser settings.</p>
+        <h2>4. Managing Cookies</h2>
+        <p>Users can control cookies via browser settings.</p>
 
-      <h2>5. Third-Party Cookies</h2>
-      <p>Third-party tools like Google Analytics may be used.</p>
+        <h2>5. Third-Party Cookies</h2>
+        <p>Third-party tools like Google Analytics may be used.</p>
 
-      <h2>6. Changes to This Policy</h2>
+        <h2>6. Changes to This Policy</h2>
 
-      <h2>7. Contact Us</h2>
-      <p>📧 hello@airful.io</p>
+        <h2>7. Contact Us</h2>
+        <p>📧 hello@airful.io</p>
+      </div>
     </LegalPage>
   );
 }

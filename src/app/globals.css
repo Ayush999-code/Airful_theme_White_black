@@ -379,7 +379,6 @@ html.lux-js [data-lux-reveal].is-visible {
 
 /* Legal Pages - White Box Text Color Fix */
 /* Force pure black text ONLY inside white content box with HIGH specificity */
-.bg-white .prose,
 .bg-white .prose p,
 .bg-white .prose h1,
 .bg-white .prose h2,
@@ -392,5 +391,16 @@ html.lux-js [data-lux-reveal].is-visible {
 .bg-white .prose a,
 .bg-white .prose div {
   color: #000 !important;
+}
+
+/* Cookies Policy - Only title and last updated black, body unchanged */
+/* Higher specificity to override prose black text */
+body .bg-white .cookies-content,
+body .bg-white .cookies-content p,
+body .bg-white .cookies-content h2,
+body .bg-white .cookies-content h3,
+body .bg-white .cookies-content ul,
+body .bg-white .cookies-content li {
+  color: inherit !important;
 }
 
