@@ -44,8 +44,10 @@ export function LegalPage({ title, lastUpdated, children, metadata }: LegalPageP
             {/* Divider */}
             <div className="border-t border-zinc-200 mb-8" />
 
-            {/* Content */}
-            <div className="prose prose-zinc max-w-none">{children}</div>
+            {/* Content - Force dark text colors */}
+            <div className="prose prose-zinc max-w-none prose-headings:text-zinc-900 prose-p:text-zinc-800 prose-li:text-zinc-800 prose-strong:text-zinc-900 prose-a:text-zinc-900 prose-a:underline hover:prose-a:text-zinc-700">
+              {children}
+            </div>
           </div>
         </Container>
       </div>
