@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -27,50 +26,32 @@ export function Hero() {
       <Container className="relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="mb-6">
             <Badge variant="glow" className="mb-6">
               <Sparkles className="w-3.5 h-3.5" />
               Digital Transformation Partners
             </Badge>
-          </motion.div>
+          </div>
 
           {/* Main Heading */}
-          <motion.h1
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight"
-          >
-            <span className="text-white" data-lux-parallax="6">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+            <span className="text-white">
               Technology
             </span>
             <br />
-            <span className="gradient-text" data-lux-parallax="8">
+            <span className="gradient-text">
               for growth
             </span>
-          </motion.h1>
+          </h1>
 
           {/* Subtitle */}
-          <motion.p
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 text-xl sm:text-2xl text-zinc-400 max-w-2xl"
-          >
-            <span data-lux-parallax="5">
-              Realize your vision with powerful technology solutions grounded in solid business
-              wisdom. We breathe connectivity and vitality into your digital ecosystem.
-            </span>
-          </motion.p>
+          <p className="mt-6 text-xl sm:text-2xl text-zinc-400 max-w-2xl">
+            Realize your vision with powerful technology solutions grounded in solid business
+            wisdom. We breathe connectivity and vitality into your digital ecosystem.
+          </p>
 
           {/* CTA Buttons */}
-          <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-10 flex flex-col sm:flex-row gap-4"
-          >
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <Link href="/contact">
               <Button variant="primary" size="lg" className="group">
                 Schedule a Discovery Meeting
@@ -82,15 +63,11 @@ export function Hero() {
                 View Our Work
               </Button>
             </Link>
-          </motion.div>
+          </div>
 
           {/* Trust Indicators */}
-          <motion.div
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-16 pt-8 border-t border-zinc-800"
-          >
-            <p className="text-sm text-zinc-500 mb-6" data-lux-parallax="4">
+          <div className="mt-16 pt-8 border-t border-zinc-800">
+            <p className="text-sm text-zinc-500 mb-6">
               Trusted by innovative businesses worldwide
             </p>
             <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
@@ -104,7 +81,7 @@ export function Hero() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </Container>
 
@@ -113,3 +90,4 @@ export function Hero() {
     </section>
   );
 }
+

@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { Quote } from "lucide-react";
@@ -11,7 +9,7 @@ const testimonials = [
 
 {
   quote:
-    "I've had the pleasure of working with Avi and I can confidently say he is one of the most driven and effective digital transformation specialists I've encountered. Whether implementing comprehensive digital marketing strategies, analysing customer data, or developing business growth initiatives, Avi consistently delivers impactful results.\n\nWhat stands out most is his ability to understand and engage our audience with authenticity and strategic intent. He balances creativity with data-driven digital marketing insight, ensuring each initiative not only looks great but serves a purpose—building business value, growing market reach, and deepening customer engagement.\n\nEven when juggling multiple digital marketing platforms and campaigns, Avi remains organized, focused, and incredibly responsive. He is also a fantastic team player—collaborative, communicative, and always ready to support or lead, depending on what's needed.\n\nIf you're looking for someone who can both own digital transformation and digital marketing end-to-end and elevate team efforts, Avi would be an outstanding addition to any brand or organization.",
+    "I've had the pleasure of working with Avi and I can confidently say he is one of the most driven and effective digital transformation specialists I've encountered. Whether implementing comprehensive digital marketing strategies, analysing customer data, or developing business growth initiatives, Avi consistently delivers impactful results.\n\nWhat stands out most is his ability to understand and engage our audience with authenticity and strategic intent. He balances creativity with data-driven digital marketing insight, ensuring each initiative not only looks great but serves a purpose—building business value, growing market reach, and deepening customer engagement.\n\nEven when juggling multiple digital marketing platforms and campaigns, Avi remains organized, focused, and incredibly responsive. He is also a fantastic team player—collaborative, communicative, and always ready to support or lead, depending on what's needed.\n\nIf you're looking for someone who can both own digital transformation and digital and elevate team efforts marketing end-to-end, Avi would be an outstanding addition to any brand or organization.",
   author: "Adrian Bobanovic",
   company: "Optika MIBO",
   image: "/images/testimonials/Adrian Bobanovic.avif"
@@ -27,21 +25,21 @@ const testimonials = [
   },
   {
     quote:
-      "The Airful team were there to help us at every step – they became an important partner for promoting our tech business. What I’ve especially liked is their thoughtfulness and pro activeness.",
+      "The Airful team were there to help us at every step – they became an important partner for promoting our tech business. What I've especially liked is their thoughtfulness and pro activeness.",
     author: "Will Ferrer",
     company: "Tempest House",
     image: "/images/testimonials/Will Ferrer.avif",
   },
   {
     quote:
-      "Airful has helped us tremendously with our prospecting, lead generation and sales efforts. They’ve done good research and contributed with high quality content to help us engage our leads and close better.",
+      "Airful has helped us tremendously with our prospecting, lead generation and sales efforts. They've done good research and contributed with high quality content to help us engage our leads and close better.",
     author: "Vasu Maganti",
     company: "Zelarsoft",
     image: "/images/testimonials/Vasu Maganti.avif",
   },
   {
     quote:
-      "Airful’s strong market understanding coupled with good technical prowess has helped us scale Bandhu better. They have helped us with technical tasks and setting up a strong engineering process so that we could release features faster on our mobile apps.",
+      "Airful's strong market understanding coupled with good technical prowess has helped us scale Bandhu better. They have helped us with technical tasks and setting up a strong engineering process so that we could release features faster on our mobile apps.",
     author: "Rushil Pallavajhalla",
     company: "Bandhu",
     image: "/images/testimonials/Rushil Pallavajhalla.avif",
@@ -98,22 +96,11 @@ const testimonials = [
 
 function TestimonialCard({
   testimonial,
-  index,
 }: {
   testimonial: (typeof testimonials)[0];
-  index: number;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
-
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800 hover:border-zinc-700 transition-colors lux-card"
-    >
+    <div className="relative p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800 hover:border-zinc-700 transition-colors lux-card">
       {/* Quote Icon */}
       <Quote className="w-8 h-8 text-[#227774]/40 mb-4" />
 
@@ -134,7 +121,7 @@ function TestimonialCard({
           <p className="text-zinc-500 text-xs">{testimonial.company}</p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -142,7 +129,6 @@ export function Testimonials() {
   return (
     <section
       className="py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-black via-[#0b1e1d] to-black lux-section"
-      data-lux-reveal
     >
       {/* Background gradient */}
       <div className="absolute inset-0">
@@ -157,10 +143,7 @@ export function Testimonials() {
           <Badge variant="outline" className="mb-4">
             Testimonials
           </Badge>
-          <h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white"
-            data-lux-parallax="8"
-          >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
             Hear directly from{" "}
             <span className="gradient-text">leaders we&apos;ve worked with</span>
           </h2>
@@ -170,7 +153,7 @@ export function Testimonials() {
         <div className="columns-1 md:columns-2 lg:columns-3 gap-6">
           {testimonials.map((testimonial, index) => (
             <div key={`${testimonial.author}-${testimonial.company}-${index}`} className="mb-6 break-inside-avoid">
-              <TestimonialCard testimonial={testimonial} index={index} />
+              <TestimonialCard testimonial={testimonial} />
             </div>
           ))}
         </div>

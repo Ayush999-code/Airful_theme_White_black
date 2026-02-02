@@ -12,32 +12,33 @@ When navigating from About (or any other page) back to Home using client-side ro
 ## Fixes Applied
 
 ### 1. src/app/page.tsx
-- [ ] Add `key={pathname}` to force re-mount on route change
+- [x] Add `key={pathname}` to force re-mount on route change
+- [x] Add `"use client"` directive for usePathname hook
 
 ### 2. src/components/sections/services.tsx
-- [ ] Change `viewport={{ once: true }}` to `viewport={{ once: false }}`
+- [x] Change `viewport={{ once: true }}` to `viewport={{ once: false }}`
 
 ### 3. src/components/sections/process.tsx
-- [ ] Change `viewport={{ once: true }}` to `viewport={{ once: false }}`
+- [x] Change `viewport={{ once: true }}` to `viewport={{ once: false }}`
 
 ### 4. src/components/sections/outcomes.tsx
-- [ ] Remove `viewport={{ once: true }}` or set to `false`
+- [x] Change `viewport={{ once: true }}` to `viewport={{ once: false }}`
 
 ### 5. src/components/sections/case-studies.tsx
-- [ ] Remove `viewport={{ once: true }}` or set to `false`
+- [x] Change `viewport={{ once: true }}` to `viewport={{ once: false }}`
 
 ### 6. src/components/sections/cta.tsx
-- [ ] Change `viewport={{ once: true }}` to `viewport={{ once: false }}`
+- [x] Change `viewport={{ once: true }}` to `viewport={{ once: false }}`
 
 ### 7. src/components/sections/testimonials.tsx
-- [ ] Change `useInView` with `once: true` to not use `once: true`
+- [x] Change `useInView` with `once: true` to `once: false`
 
 ## Verification
-- [ ] Run TypeScript check
-- [ ] Run `npm run build`
+- [x] Run TypeScript check - Passed
+- [x] Run `npm run build` - Passed
 - [ ] Test navigation: About → Home (no refresh, no scroll required)
 - [ ] Verify all sections render immediately
 
 ## Commit
-- [ ] Commit and push to main
+- [x] Commit and push to main - Committed and pushed
 
