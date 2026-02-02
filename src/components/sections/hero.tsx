@@ -47,7 +47,7 @@ export function Hero() {
           {/* Subtitle */}
           <p className="mt-6 text-xl sm:text-2xl text-zinc-400 max-w-2xl">
             Realize your vision with powerful technology solutions grounded in solid business
-            wisdom. We breathe connectivity and vitality into your digital ecosystem.
+            wisdom We breathe connectivity and vitality into your digital ecosystem.
           </p>
 
           {/* CTA Buttons */}
@@ -60,7 +60,7 @@ export function Hero() {
             </Link>
             <Link href="/case-studies">
               <Button variant="outline" size="lg">
-                View Our Work
+                View Our Works
               </Button>
             </Link>
           </div>
