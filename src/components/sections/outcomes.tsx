@@ -47,7 +47,6 @@ export function Outcomes() {
   return (
     <section
       className="py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-black via-[#0b1e1d] to-black lux-section"
-      data-lux-reveal
     >
       <Container className="relative z-10">
         {/* Section Header */}
@@ -55,10 +54,7 @@ export function Outcomes() {
           <Badge variant="outline" className="mb-4">
             Outcomes We Help You Achieve
           </Badge>
-          <h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white"
-            data-lux-parallax="8"
-          >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
             Transform Today.{" "}
             <span className="gradient-text">Thrive Tomorrow.</span>
           </h2>
@@ -67,12 +63,8 @@ export function Outcomes() {
         {/* Accordion */}
         <div className="max-w-3xl mx-auto">
           {outcomes.map((outcome, index) => (
-            <motion.div
+            <div
               key={outcome.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="border-b border-zinc-800 last:border-b-0"
             >
               <button
@@ -121,7 +113,7 @@ export function Outcomes() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           ))}
         </div>
       </Container>

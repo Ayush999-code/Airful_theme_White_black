@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -51,32 +50,10 @@ const services = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
-
 export function Services() {
   return (
     <section
       className="py-24 lg:py-32 relative overflow-hidden lux-section"
-      data-lux-reveal
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0b1e1d] to-black" />
@@ -87,31 +64,21 @@ export function Services() {
           <Badge variant="outline" className="mb-4">
             Our Services
           </Badge>
-          <h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4"
-            data-lux-parallax="8"
-          >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
             Breathing connectivity &{" "}
             <span className="gradient-text">vitality</span> into your business
           </h2>
-          <p className="text-zinc-400 text-xl" data-lux-parallax="5">
+          <p className="text-zinc-400 text-xl">
             We create digital solutions that serve the human spirit of your business,
             not complicate it.
           </p>
         </div>
 
         {/* Services Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {services.map((service, index) => (
-            <motion.div
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service) => (
+            <div
               key={service.title}
-              variants={itemVariants}
               className="group relative p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 hover:bg-zinc-900 lux-card"
             >
               {/* Icon */}
@@ -129,9 +96,9 @@ export function Services() {
 
               {/* Hover gradient effect */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#227774]/10 to-[#0b1e1d]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </Container>
     </section>
   );

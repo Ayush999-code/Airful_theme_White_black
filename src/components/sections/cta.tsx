@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -19,20 +18,15 @@ export default function CTA() {
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#227774]/10 rounded-full blur-3xl" />
 
       <Container className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm"
-        >
+        <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
           <div className="relative px-8 py-16 lg:px-16 lg:py-20 text-center">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
               Ready for <span className="gradient-text">Transformation</span>?
             </h2>
 
             <p className="text-zinc-400 text-xl max-w-2xl mx-auto mb-10">
-              Join the innovative businesses and entrepreneurs who&apos;ve discovered
-              the power of technology with heart. Let&apos;s build something
+              Join the innovative businesses and entrepreneurs who've discovered
+              the power of technology with heart. Let's build something
               remarkable together.
             </p>
 
@@ -60,8 +54,9 @@ export default function CTA() {
               </Button>
             </div>
           </div>
-        </motion.div>
+        </div>
       </Container>
     </section>
   );
 }
+

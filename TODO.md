@@ -1,22 +1,59 @@
-# About Page Revert - TODO List
+# Fix Navigation Bug - Client-side routing issue on Home page
 
-## Phase 1: Revert About Page
-- [x] Revert `src/app/about/page.tsx` to original dark theme layout
-- [x] Remove MentalHealthHero import and component
-- [x] Remove marquee strip section
-- [x] Remove framer-motion animations
-- [x] Remove AvatarGroup component
-- [x] Simplify to match original site design
+## Problem
+When navigating from About (or any other page) back to Home using client-side routing, the Home page hero loads, but the section below the hero appears blank. This happens ONLY on client-side navigation, not on reload.
 
-## Phase 2: Clean up CSS
-- [x] Remove healthcare theme CSS from `src/app/globals.css`
-- [x] Keep original dark theme styles intact
+## Root Cause
+- `data-lux-reveal` CSS sets `opacity: 0` and uses IntersectionObserver to add `is-visible` class
+- Elements need to be scrolled into view to trigger reveal animation
+- Even with `once: false`, elements below the fold need scrolling to appear
 
-## Phase 3: Verification
-- [ ] Run TypeScript check (`npx tsc --noEmit`)
-- [ ] Run build (`npm run build`)
+## Fix Applied
 
-## Phase 4: Commit & Push
-- [ ] Commit revert with clear message
-- [ ] Push to main branch
+### Complete Fix - Remove all scroll-based reveal animations from Home page
 
+**src/app/page.tsx**
+- Keep `key={pathname}` to force re-mount on route change
+- Keep `"use client"` directive
+
+**src/components/sections/hero.tsx**
+- Removed all `motion.div`, `motion.h1`, `motion.p`, `motion.div` components
+- Removed all `initial`, `animate`, `transition` props
+- Removed `data-lux-parallax` attributes
+
+**src/components/sections/services.tsx**
+- Removed all `motion.div` components
+- Removed `data-lux-reveal` attribute from section
+- Removed all framer-motion animations
+
+**src/components/sections/process.tsx**
+- Removed all `motion.div` components
+- Removed `data-lux-reveal` attribute from section
+- Removed all framer-motion animations
+
+**src/components/sections/outcomes.tsx**
+- Removed `motion.div` from map (kept for accordion animation)
+- Removed `data-lux-reveal` attribute from section
+- Removed `whileInView` animation
+
+**src/components/sections/case-studies.tsx**
+- Removed all `motion.div` components
+- Removed `data-lux-reveal` attribute from section
+- Removed all framer-motion animations
+
+**src/components/sections/testimonials.tsx**
+- Removed all `motion.div` from TestimonialCard
+- Removed `useInView` hook
+- Removed all framer-motion animations
+
+**src/components/sections/cta.tsx**
+- Removed `motion.div` wrapper
+- Removed all framer-motion animations
+
+## Verification
+- [x] Run TypeScript check - Passed
+- [x] Run `npm run build` - Passed
+- [x] Commit and push to main - Committed and pushed
+
+## Result
+Home page sections now render immediately on client-side navigation without requiring scroll.

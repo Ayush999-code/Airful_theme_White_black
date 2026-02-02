@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 
@@ -35,7 +34,6 @@ export function Process() {
   return (
     <section
       className="py-24 lg:py-32 relative overflow-hidden lux-section"
-      data-lux-reveal
     >
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0b1e1d] to-black" />
@@ -49,10 +47,7 @@ export function Process() {
           <Badge variant="outline" className="mb-4">
             Our Process
           </Badge>
-          <h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white"
-            data-lux-parallax="8"
-          >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
             How we <span className="gradient-text">work</span>
           </h2>
         </div>
@@ -60,12 +55,8 @@ export function Process() {
         {/* Process Steps */}
         <div className="max-w-4xl mx-auto">
           {steps.map((step, index) => (
-            <motion.div
+            <div
               key={step.number}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="relative flex gap-8 pb-12 last:pb-0"
             >
               {/* Timeline line */}
@@ -91,7 +82,7 @@ export function Process() {
                   {step.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </Container>
