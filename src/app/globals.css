@@ -231,6 +231,13 @@ p {
 
 .lux-section {
   isolation: isolate;
+  padding-block: 2.5rem !important;
+}
+
+@media (min-width: 1024px) {
+  .lux-section {
+    padding-block: 3.5rem !important;
+  }
 }
 
 html.lux-js [data-lux-reveal] {

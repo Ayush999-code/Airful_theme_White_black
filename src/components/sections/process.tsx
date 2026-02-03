@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 
@@ -52,39 +52,70 @@ export function Process() {
           </h2>
         </div>
 
-        {/* Process Steps */}
-        <div className="max-w-4xl mx-auto">
-          {steps.map((step, index) => (
-            <div
-              key={step.number}
-              className="relative flex gap-8 pb-12 last:pb-0"
-            >
-              {/* Timeline line */}
-              {index !== steps.length - 1 && (
-                <div className="absolute left-[27px] top-16 bottom-0 w-px bg-gradient-to-b from-zinc-700 to-transparent" />
-              )}
+        {/* Two-column layout: Steps left, image boxed right */}
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 lg:gap-[25px] items-start lg:items-stretch">
+          {/* Left Column: Process Steps */}
+          <div>
+            {steps.map((step, index) => (
+              <div
+                key={step.number}
+                className="relative flex gap-6 sm:gap-8 pb-10 sm:pb-12 last:pb-0"
+              >
+                {/* Timeline line */}
+                {index !== steps.length - 1 && (
+                  <div className="absolute left-[27px] top-16 bottom-0 w-px bg-gradient-to-b from-zinc-700 to-transparent" />
+                )}
 
-              {/* Number */}
-              <div className="flex-shrink-0">
-                <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center lux-chip">
-                  <span className="text-lg font-bold text-[#8fe6df]">
-                    {step.number}
-                  </span>
+                {/* Number */}
+                <div className="flex-shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center lux-chip">
+                    <span className="text-lg font-bold text-[#8fe6df]">
+                      {step.number}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 pt-2">
+                  <h3 className="text-xl font-semibold text-white mb-3">
+                    {step.title}
+                  </h3>
+                  <p
+                    className="text-zinc-400 leading-relaxed"
+                    style={{ width: "var(--process-desc-width, 600px)" }}
+                    data-process-desc="true"
+                  >
+                    {step.description}
+                  </p>
                 </div>
               </div>
+            ))}
+          </div>
 
-              {/* Content */}
-              <div className="flex-1 pt-2">
-                <h3 className="text-xl font-semibold text-white mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-zinc-400 leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
+          {/* Right Column: Image */}
+          <div className="mt-10 lg:mt-0 lg:h-full">
+            <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-full rounded-[10px] border border-white/10 overflow-hidden">
+              <Image
+                src="/work.png"
+                alt="How we work"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                priority={false}
+              />
             </div>
-          ))}
+          </div>
         </div>
+        <style jsx>{`
+          [data-process-desc="true"] {
+            --process-desc-width: 600px;
+          }
+          @media (max-width: 700px) {
+            [data-process-desc="true"] {
+              --process-desc-width: 100%;
+            }
+          }
+        `}</style>
       </Container>
     </section>
   );
