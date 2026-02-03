@@ -55,9 +55,7 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="ghost" size="sm">
-              Log In
-            </Button>
+          
             <Link href="/contact">
               <Button variant="primary" size="sm">
                 Book a Meeting
