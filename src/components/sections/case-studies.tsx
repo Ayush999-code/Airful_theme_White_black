@@ -6,104 +6,19 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { client } from "@/sanity/lib/client";
-import { isConfigured } from "@/sanity/env";
-import { urlFor } from "@/sanity/lib/image";
 
-type CaseStudyCard = {
+export type CaseStudyCard = {
   title: string;
   href: string;
   thumbnail?: string;
   _id?: string;
 };
 
-// Fallback static data - uses slugs matching Sanity format
-const staticCaseStudies: CaseStudyCard[] = [
-  {
-    title: "Alistair Langer",
-    href: "/case-studies/alistair-langer",
-    thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop",
-  },
-  {
-    title: "GitStart",
-    href: "/case-studies/gitstart",
-    thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
-  },
-  {
-    title: "Le Roma Gardenia",
-    href: "/case-studies/le-roma-gardenia",
-    thumbnail: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
-  },
-  {
-    title: "Tempest House",
-    href: "/case-studies/tempest-house",
-    thumbnail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
-  },
-];
+interface CaseStudiesProps {
+  caseStudies: CaseStudyCard[];
+}
 
-type SanityCaseStudy = {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  thumbnail?: {
-    _type: "image";
-    asset: {
-      _ref: string;
-      _type: "reference";
-    };
-  };
-  shortDescription?: string;
-  serviceCategory?: string;
-  technologiesUsed?: string[];
-};
-
-const sanityQuery = `*[_type == "caseStudy"] | order(_createdAt desc)[0...4] {
-  _id,
-  title,
-  slug,
-  thumbnail
-}`;
-
-export function CaseStudies() {
-  const [caseStudies, setCaseStudies] = useState<CaseStudyCard[]>(staticCaseStudies);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchCaseStudies() {
-      if (!isConfigured()) {
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const data = await client.fetch<SanityCaseStudy[]>(sanityQuery);
-        if (data && data.length > 0) {
-          // Map Sanity data to UI format
-          const mappedData = data
-            .map((study) => {
-              const slugCurrent = study.slug?.current;
-              if (!slugCurrent) return null;
-              return {
-                title: study.title,
-                href: `/case-studies/${slugCurrent}`,
-                thumbnail: study.thumbnail ? urlFor(study.thumbnail).width(800).height(600).fit("crop").url() : undefined,
-                _id: study._id,
-              };
-            })
-            .filter(Boolean) as CaseStudyCard[];
-          setCaseStudies(mappedData);
-        }
-      } catch (error) {
-        console.error("Failed to fetch case studies from Sanity:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchCaseStudies();
-  }, []);
-
+export function CaseStudies({ caseStudies }: CaseStudiesProps) {
   return (
     <section
       className="py-24 lg:py-32 relative overflow-hidden lux-section"
@@ -135,9 +50,9 @@ export function CaseStudies() {
 
         {/* Case Studies Grid - 4 cards in one row on desktop */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {caseStudies.map((study, index) => (
+          {caseStudies.map((study) => (
             <Link
-              key={study._id ?? (study.href + index)}
+              key={study._id ?? study.href}
               href={study.href}
               className="group block h-full rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 lux-card overflow-hidden"
             >
