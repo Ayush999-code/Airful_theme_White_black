@@ -5,19 +5,13 @@ import { Linkedin, Twitter, Instagram, Mail } from "lucide-react";
 
 const footerLinks = {
   services: [
-    { name: "Web Design & Development", href: "/services/web-design-development" },
-    { name: "Custom Software", href: "/services/custom-software-development" },
-    { name: "Data Integrations", href: "/services/data-integrations-automation" },
-    { name: "IT Consulting", href: "/services/it-consulting-strategy" },
-    { name: "SEO", href: "/services/search-engine-optimization-seo" },
+    { name: "Custom Software Development", href: "/services/custom-software-development" },
+    { name: "Recruitment Operations", href: "/services/recruitment-operations" },
   ],
   company: [
     { name: "About", href: "/about" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Blog", href: "/blog" },
-    { name: "Testimonials", href: "/testimonials" },
-    { name: "Careers", href: "/careers" },
-    { name: "Contact", href: "/contact" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy-policy" },
@@ -38,9 +32,9 @@ export function Footer() {
     <footer className="border-t border-zinc-800 bg-black">
       <Container>
         <div className="py-12 lg:py-16">
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-8 lg:[grid-template-columns:1.4fr_1fr_1fr_1fr]">
             {/* Brand Column */}
-            <div className="col-span-2 lg:col-span-2">
+            <div>
               <Link href="/" className="flex items-center gap-2 group">
                 <Image
                   src="/logoairful.png"
