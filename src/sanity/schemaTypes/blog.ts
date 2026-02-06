@@ -26,21 +26,48 @@ export const blog = defineType({
       title: "Featured Image",
       type: "image",
       options: { hotspot: true },
-      validation: Rule => Rule.required(),
+    }),
+
+    defineField({
+      name: "excerpt",
+      title: "Excerpt",
+      type: "text",
+      rows: 3,
+      description: "Brief summary for blog cards",
+    }),
+
+    defineField({
+      name: "author",
+      title: "Author",
+      type: "string",
+    }),
+
+    defineField({
+      name: "publishedAt",
+      title: "Published At",
+      type: "datetime",
+      initialValue: () => new Date().toISOString(),
     }),
 
     defineField({
       name: "category",
       title: "Category",
       type: "string",
-      description: "Example: Development, UI/UX, Technology",
+      options: {
+        list: [
+          { title: "Technology", value: "technology" },
+          { title: "Design", value: "design" },
+          { title: "Business", value: "business" },
+          { title: "Marketing", value: "marketing" },
+        ],
+      },
     }),
 
     defineField({
-      name: "shortDescription",
-      title: "Short Description",
-      type: "string",
-      description: "Brief description for blog cards and SEO preview (~160 characters)",
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [{ type: "string" }],
     }),
 
     defineField({
@@ -48,30 +75,48 @@ export const blog = defineType({
       title: "Content",
       type: "array",
       of: [{ type: "block" }],
-      description: "Rich text content for the blog post",
+      description: "Main blog post content",
     }),
 
     defineField({
-      name: "publishedAt",
-      title: "Published At",
-      type: "date",
+      name: "seoTitle",
+      title: "SEO Title",
+      type: "string",
+    }),
+
+    defineField({
+      name: "seoDescription",
+      title: "SEO Description",
+      type: "text",
     }),
   ],
 
   preview: {
     select: {
       title: "title",
-      subtitle: "category",
+      subtitle: "author",
       media: "featuredImage",
     },
     prepare(selection) {
       const { title, subtitle, media } = selection;
       return {
         title: title,
-        subtitle: subtitle ? `Category: ${subtitle}` : 'No category',
+        subtitle: subtitle ? `By ${subtitle}` : 'No author',
         media: media,
       };
     },
   },
-});
 
+  orderings: [
+    {
+      title: 'Published Date (Newest)',
+      name: 'publishedDesc',
+      by: [{ field: 'publishedAt', direction: 'desc' }],
+    },
+    {
+      title: 'Published Date (Oldest)',
+      name: 'publishedAsc',
+      by: [{ field: 'publishedAt', direction: 'asc' }],
+    },
+  ],
+});

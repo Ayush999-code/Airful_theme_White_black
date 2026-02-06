@@ -1,22 +1,31 @@
 'use client'
 
-import { visionTool } from '@sanity/vision'
-import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure'
+import {defineConfig} from 'sanity'
+import {structureTool} from 'sanity/structure'
+import {visionTool} from '@sanity/vision'
 
-import { apiVersion, dataset, projectId } from './src/sanity/env'
-import { schema } from './src/sanity/schemaTypes'
-import { structure } from './src/sanity/structure'
+import {schema} from './src/sanity/schemaTypes'
+import {structure} from './src/sanity/structure'
+import {apiVersion} from './src/sanity/env'
 
 export default defineConfig({
+  // Studio path (OK for hosted + local)
   basePath: '/studio',
-  projectId,
-  dataset,
+
+  // 🔑 REQUIRED for hosted Studio
+  projectId: 'euny7u3w',
+
+  // ❗ IMPORTANT:
+  // Yahan wahi dataset name likho
+  // jo Sanity dashboard → Datasets tab me dikh raha ho
+  // Example: 'production'
+  dataset: 'production',
 
   schema,
 
   plugins: [
-    structureTool({ structure }),
-    visionTool({ defaultApiVersion: apiVersion }),
+    structureTool({structure}),
+    visionTool({defaultApiVersion: apiVersion}),
   ],
 })
+
