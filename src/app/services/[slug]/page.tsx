@@ -127,17 +127,10 @@ export default async function ServicePage({
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_380px]">
             {/* LEFT */}
             <div>
-<h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+              <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
                 {data.title}
               </h1>
-        
-              {/* Service Category - Single Line Format */}
-              {data.category && (
-                <p className="text-sm text-zinc-500 mb-8">
-                  Service Category: <span className="text-cyan-400 capitalize">{data.category}</span>
-                </p>
-              )}
-              
+
               <div className="h-px w-full bg-zinc-800 mb-10" />
 
               {data.content && data.content.length > 0 ? (

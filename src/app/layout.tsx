@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { ScrollEffects } from "@/components/ui/scroll-effects";
 import { CtaPlacement } from "@/components/layout/cta-placement";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -71,12 +72,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${raleway.variable} antialiased bg-black text-white`}
       >
-        <ScrollEffects />
-        <Header />
-        <Breadcrumbs />
-        <main>{children}</main>
-        <CtaPlacement />
-        <Footer />
+        <ThemeProvider>
+          <ScrollEffects />
+          <Header />
+          <Breadcrumbs />
+          <main>{children}</main>
+          <CtaPlacement />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

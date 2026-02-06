@@ -73,14 +73,14 @@ export function Outcomes() {
               >
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:border-[#227774]/60 transition-colors lux-chip">
-                    <outcome.icon className="w-5 h-5 text-[#8fe6df]" />
+                    <outcome.icon className="w-5 h-5 text-[#227774]" />
                   </div>
-                  <span className="text-lg font-medium text-white group-hover:text-[#8fe6df] transition-colors">
+                  <span className="text-lg font-medium text-white group-hover:text-[#227774] transition-colors">
                     {outcome.title}
                   </span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="hidden sm:block text-sm font-semibold text-[#8fe6df]">
+                  <span className="hidden sm:block text-sm font-semibold text-[#227774]">
                     {outcome.stat}
                   </span>
                   <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center lux-chip">

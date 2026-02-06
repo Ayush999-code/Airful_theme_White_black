@@ -82,17 +82,24 @@ export function Services() {
               className="group relative p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 hover:bg-zinc-900 lux-card"
             >
               {/* Icon */}
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#227774]/20 to-[#0b1e1d]/40 border border-[#227774]/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 lux-chip">
-                <service.icon className="w-6 h-6 text-[#8fe6df]" />
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#227774]/20 to-[#0b1e1d]/40 border border-[#227774]/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 lux-chip">
+                <service.icon className="w-6 h-6 text-[#227774]" />
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#8fe6df] transition-colors">
+              <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#227774] transition-colors">
                 {service.title}
               </h3>
               <p className="text-zinc-400 text-sm leading-relaxed">
                 {service.description}
               </p>
+
+              {/* Read More Button */}
+              <div className="mt-6">
+                <span className="inline-flex items-center rounded-full border border-cyan-400/50 px-4 py-2 text-sm text-cyan-300 transition hover:text-cyan-200 hover:shadow-[0_0_16px_rgba(34,211,238,0.3)]">
+                  Read More →
+                </span>
+              </div>
 
               {/* Hover gradient effect */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#227774]/10 to-[#0b1e1d]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

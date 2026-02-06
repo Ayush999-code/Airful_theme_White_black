@@ -411,8 +411,491 @@ html.lux-js [data-lux-reveal].is-visible {
     color: #000;
 }
 .mx-auto.w-full.px-\[15px\].max-w-\[1450px\] h2 {
-  
+
     font-weight: 500;
     padding-bottom: 10px;
     padding-top: 12px;
+}
+
+/* ============================================================
+   LIGHT THEME OVERRIDES
+   Applied when data-theme="light" is set on <html>.
+   Dark theme remains the default and is NOT modified above.
+   ============================================================ */
+
+/* --- CSS Custom Properties --- */
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #111827;
+  --muted: #6b7280;
+  --accent: #1a6b68;
+  --accent-strong: #155e5b;
+  --accent-glow: rgba(34, 119, 116, 0.18);
+  --accent-soft: rgba(34, 119, 116, 0.06);
+  --accent-foreground: #ffffff;
+  --border: #e5e7eb;
+  --card: #f3f4f6;
+  --card-foreground: #111827;
+}
+
+/* --- Body --- */
+[data-theme="light"] body {
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(900px 600px at 70% -10%, rgba(34, 119, 116, 0.06), transparent 65%),
+    radial-gradient(800px 520px at 10% 10%, rgba(34, 119, 116, 0.04), transparent 60%),
+    radial-gradient(900px 700px at 50% 110%, rgba(34, 119, 116, 0.03), transparent 65%);
+  color: #111827;
+}
+
+/* --- Headings --- */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+  color: #111827;
+}
+
+/* --- Paragraphs --- */
+[data-theme="light"] p {
+  color: rgba(17, 24, 39, 0.85);
+}
+
+/* --- Gradient text --- */
+[data-theme="light"] .gradient-text {
+  background: linear-gradient(120deg, #111827, #1a6b68, #227774);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* --- Text utility overrides --- */
+[data-theme="light"] .text-white {
+  color: #111827;
+}
+
+[data-theme="light"] .text-zinc-300 {
+  color: #374151;
+}
+
+[data-theme="light"] .text-zinc-400 {
+  color: #4b5563;
+}
+
+[data-theme="light"] .text-zinc-500 {
+  color: #6b7280;
+}
+
+[data-theme="light"] .text-\[\#f8fbff\] {
+  color: #374151;
+}
+
+/* Accent text — slightly darker for contrast on white */
+[data-theme="light"] .text-blue-400 {
+  color: #227774;
+}
+
+[data-theme="light"] .text-blue-300 {
+  color: #227774;
+}
+
+/* --- Background and Border utility overrides for white theme --- */
+[data-theme="light"] .bg-blue-500\/10 {
+  background-color: rgba(34, 119, 116, 0.1);
+}
+
+[data-theme="light"] .border-blue-500\/20 {
+  border-color: rgba(34, 119, 116, 0.3);
+}
+
+[data-theme="light"] .border-blue-500\/30 {
+  border-color: rgba(34, 119, 116, 0.3);
+}
+
+/* Box shadow for white theme */
+[data-theme="light"] .shadow-blue-500\/25 {
+  box-shadow: 0 0 20px rgba(34, 119, 116, 0.25);
+}
+
+/* --- Background utility overrides --- */
+[data-theme="light"] .bg-black {
+  background-color: #ffffff;
+}
+
+[data-theme="light"] .bg-black\/80 {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+[data-theme="light"] .bg-zinc-900 {
+  background-color: #f3f4f6;
+}
+
+[data-theme="light"] .bg-zinc-900\/50 {
+  background-color: rgba(243, 244, 246, 0.5);
+}
+
+[data-theme="light"] .bg-zinc-900\/60 {
+  background-color: rgba(243, 244, 246, 0.6);
+}
+
+[data-theme="light"] .bg-zinc-900\/70 {
+  background-color: rgba(243, 244, 246, 0.7);
+}
+
+[data-theme="light"] .bg-white\/5 {
+  background-color: #ffffff;
+}
+
+/* --- Border utility overrides --- */
+[data-theme="light"] .border-zinc-800 {
+  border-color: #e5e7eb;
+}
+
+[data-theme="light"] .border-zinc-800\/50 {
+  border-color: rgba(229, 231, 235, 0.7);
+}
+
+[data-theme="light"] .border-zinc-800\/80 {
+  border-color: rgba(229, 231, 235, 0.8);
+}
+
+[data-theme="light"] .border-zinc-700 {
+  border-color: #d1d5db;
+}
+
+[data-theme="light"] .border-zinc-700\/80 {
+  border-color: rgba(209, 213, 219, 0.8);
+}
+
+[data-theme="light"] .border-slate-700\/80 {
+  border-color: rgba(203, 213, 225, 0.8);
+}
+
+/* --- Hover state overrides --- */
+[data-theme="light"] .hover\:text-white:hover {
+  color: #111827;
+}
+
+[data-theme="light"] .hover\:bg-zinc-900\/50:hover {
+  background-color: rgba(243, 244, 246, 0.5);
+}
+
+[data-theme="light"] .hover\:bg-zinc-900:hover {
+  background-color: #e5e7eb;
+}
+
+[data-theme="light"] .hover\:bg-zinc-800\/80:hover {
+  background-color: rgba(229, 231, 235, 0.8);
+}
+
+[data-theme="light"] .hover\:bg-white\/5:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .hover\:bg-slate-900\/60:hover {
+  background-color: rgba(241, 245, 249, 0.6);
+}
+
+[data-theme="light"] .hover\:border-zinc-700:hover {
+  border-color: #d1d5db;
+}
+
+/* --- Focus state overrides --- */
+[data-theme="light"] .focus-visible\:ring-offset-black {
+  --tw-ring-offset-color: #ffffff;
+}
+
+/* --- Gradient background overrides (decorative section fades) --- */
+[data-theme="light"] .from-black {
+  --tw-gradient-from: #ffffff;
+}
+
+[data-theme="light"] .to-black {
+  --tw-gradient-to: #ffffff;
+}
+
+[data-theme="light"] .via-\[\#0b1e1d\] {
+  --tw-gradient-via: rgba(34, 119, 116, 0.04);
+}
+
+/* --- Custom class overrides --- */
+
+/* Hero background */
+[data-theme="light"] .hero-bg {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(34, 119, 116, 0.06), transparent 60%),
+    radial-gradient(900px 520px at 10% 20%, rgba(34, 119, 116, 0.04), transparent 65%),
+    radial-gradient(1000px 700px at 90% 10%, rgba(0, 196, 167, 0.05), transparent 60%);
+}
+
+/* Hero grid */
+[data-theme="light"] .hero-grid {
+  opacity: 0.08;
+  background-image:
+    linear-gradient(rgba(34, 119, 116, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 119, 116, 0.15) 1px, transparent 1px);
+}
+
+/* Glass effect */
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Glow effects — subtler on light */
+[data-theme="light"] .glow {
+  box-shadow: 0 0 40px rgba(34, 119, 116, 0.15);
+}
+
+[data-theme="light"] .glow-sm {
+  box-shadow: 0 0 20px rgba(34, 119, 116, 0.1);
+}
+
+/* Grid pattern */
+[data-theme="light"] .grid-pattern {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+/* Gradient backgrounds (radial, spotlight) */
+[data-theme="light"] .gradient-radial {
+  background: radial-gradient(ellipse at center, rgba(34, 119, 116, 0.08) 0%, transparent 70%);
+}
+
+[data-theme="light"] .gradient-spotlight {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34, 119, 116, 0.1), transparent);
+}
+
+/* Cards */
+[data-theme="light"] .lux-card {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.9), rgba(243, 244, 246, 0.95));
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="light"] .lux-card:hover {
+  border-color: rgba(34, 119, 116, 0.3);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(34, 119, 116, 0.1);
+}
+
+/* Surface */
+[data-theme="light"] .lux-surface {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.85), rgba(243, 244, 246, 0.95));
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Chip */
+[data-theme="light"] .lux-chip {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.8), rgba(243, 244, 246, 0.9));
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* --- Scrollbar --- */
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* --- Selection --- */
+[data-theme="light"] ::selection {
+  background: rgba(34, 119, 116, 0.2);
+  color: #111827;
+}
+
+/* --- Prose overrides for light theme --- */
+[data-theme="light"] .prose.prose-invert p strong {
+  color: #111827;
+}
+
+[data-theme="light"] .prose ul li::after {
+  background: #111827;
+}
+
+/* --- Theme toggle button --- */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ============================================================
+   WHITE THEME — PAGE-SPECIFIC OVERRIDES
+   ============================================================ */
+
+/* --- 1. Header Banner — solid BLACK in white theme --- */
+[data-theme="light"] header .bg-black\/80 {
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+[data-theme="light"] header .border-zinc-800\/50 {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] header .text-\[\#f8fbff\] {
+  color: #f8fbff;
+}
+
+[data-theme="light"] header .text-white {
+  color: #f8fbff;
+}
+
+[data-theme="light"] header .text-zinc-400 {
+  color: rgba(248, 251, 255, 0.7);
+}
+
+[data-theme="light"] header .hover\:text-white:hover {
+  color: #ffffff;
+}
+
+[data-theme="light"] header .hover\:bg-zinc-900\/50:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] header .hover\:bg-zinc-900:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] header .border-zinc-800 {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] header .border-slate-700\/80 {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] header .hover\:bg-slate-900\/60:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] header .theme-toggle-btn {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #f8fbff;
+}
+
+[data-theme="light"] header .theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+/* --- 2. About Page — white theme sections & cards --- */
+[data-theme="light"] .bg-zinc-950 {
+  background-color: #f9fafb;
+}
+
+[data-theme="light"] .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .hover\:border-white\/20:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .bg-zinc-800\/60 {
+  background-color: rgba(229, 231, 235, 0.6);
+}
+
+/* --- 3. Breadcrumb — solid BLUE in white theme --- */
+[data-theme="light"] .bg-gradient-to-r.from-white.via-\[\#8fe6df\].to-white {
+  background: #227774 !important;
+}
+
+[data-theme="light"] .bg-gradient-to-r.from-white.via-\[\#8fe6df\].to-white p {
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-gradient-to-r.from-white.via-\[\#8fe6df\].to-white a {
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-gradient-to-r.from-white.via-\[\#8fe6df\].to-white .text-\[\#8fe6df\] {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* --- 4. Services — white boxes, consistent blue tag color --- */
+[data-theme="light"] .bg-black\/30 {
+  background-color: #227774;
+  border-color: #227774;
+}
+
+[data-theme="light"] .bg-black\/30.text-zinc-400 {
+  color: #ffffff;
+}
+
+[data-theme="light"] .bg-black\/30.text-white {
+  color: #ffffff;
+}
+
+/* Service card heading hover */
+[data-theme="light"] .group:hover .group-hover\:text-cyan-300 {
+  color: #1a6b68;
+}
+
+/* --- 5. Case Studies & Blog — black bg / white text buttons --- */
+[data-theme="light"] .border-cyan-400\/50 {
+  border-color: #111827;
+  background-color: #111827;
+}
+
+[data-theme="light"] .text-cyan-300 {
+  color: #ffffff;
+}
+
+[data-theme="light"] .hover\:text-cyan-200:hover {
+  color: #ffffff;
+}
+
+/* --- 6. Badge Glow Variant — Top pill/badge visibility fix for white theme --- */
+[data-theme="light"] .bg-\[\#227774\]\/10 {
+  background-color: rgba(34, 119, 116, 0.12) !important;
+}
+
+[data-theme="light"] .text-\[\#c6f4ef\] {
+  color: #227774 !important;
+}
+
+[data-theme="light"] .border-\[\#227774\]\/30 {
+  border-color: rgba(34, 119, 116, 0.35) !important;
+}
+
+[data-theme="light"] .shadow-\[0_0_20px_rgba\(34\,119\,116\,0\.25\)\] {
+  box-shadow: 0 0 16px rgba(34, 119, 116, 0.25) !important;
 }

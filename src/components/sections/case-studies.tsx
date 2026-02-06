@@ -71,12 +71,12 @@ export function CaseStudies({ caseStudies }: CaseStudiesProps) {
               {/* Content */}
               <div className="p-6">
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-[#8fe6df] transition-colors">
+                <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-[#227774] transition-colors">
                   {study.title}
                 </h3>
 
                 {/* Link */}
-                <div className="flex items-center gap-2 text-sm font-medium text-[#8fe6df] group-hover:text-[#b6f1ec] transition-colors">
+                <div className="flex items-center gap-2 text-sm font-medium text-[#227774] group-hover:text-[#227774]/80 transition-colors">
                   Read Case Study
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>

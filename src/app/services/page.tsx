@@ -130,8 +130,9 @@ export default async function ServicesPage() {
                     href={`/services/${slugString}`}
                     className="group relative rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_0_40px_rgba(0,0,0,0.25)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_10px_60px_rgba(56,189,248,0.25)]"
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
+                   <div className="block items-start gap-4 ">
+       
+                      <div className="flex-shrink-0 w-[80px]">
                         {service.icon ? (
                           <div className="bg-white rounded-[10px] p-2 transition duration-300 group-hover:scale-110">
                             <Image
@@ -150,13 +151,6 @@ export default async function ServicesPage() {
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap gap-2 mb-2">
-                          {service.category ? (
-                            <span className="rounded-full border border-white/10 bg-black/30 px-2 py-1 text-xs text-zinc-400 backdrop-blur capitalize">
-                              {service.category}
-                            </span>
-                          ) : null}
-                        </div>
                         <h2 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
                           {service.title}
                         </h2>
@@ -164,7 +158,7 @@ export default async function ServicesPage() {
                     </div>
 
                     {service.shortDescription && (
-                      <p className="mt-4 text-sm leading-relaxed text-zinc-400 line-clamp-3">
+                      <p className="mt-1 text-sm leading-relaxed text-zinc-400 line-clamp-3">
                         {service.shortDescription}
                       </p>
                     )}

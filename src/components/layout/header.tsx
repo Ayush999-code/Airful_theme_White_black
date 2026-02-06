@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { ThemeToggle } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -55,7 +56,7 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-          
+            <ThemeToggle />
             <Link href="/contact">
               <Button variant="primary" size="sm">
                 Book a Meeting
@@ -63,17 +64,20 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 text-zinc-400 hover:text-white transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
+          {/* Mobile Header Actions */}
+          <div className="lg:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="lg:hidden p-2 text-zinc-400 hover:text-white transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}

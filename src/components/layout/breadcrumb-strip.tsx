@@ -12,7 +12,7 @@ type BreadcrumbStripProps = {
 
 export function BreadcrumbStrip({ items }: BreadcrumbStripProps) {
   return (
-    <div className="w-full mt-16 lg:mt-20 bg-gradient-to-r from-white via-[#8fe6df] to-white">
+    <div className="w-full mt-16 lg:mt-20 bg-gradient-to-r from-white via-[#227774] to-white">
       <Container>
         <div className="py-3 sm:py-4">
           <nav aria-label="Breadcrumb">
@@ -27,7 +27,7 @@ export function BreadcrumbStrip({ items }: BreadcrumbStripProps) {
                     <span>{item.label}</span>
                   )}
                   {index < items.length - 1 ? (
-                    <span className="mx-2 text-[#8fe6df]">/</span>
+                    <span className="mx-2 text-[#227774]">/</span>
                   ) : null}
                 </span>
               ))}
