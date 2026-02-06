@@ -98,7 +98,7 @@ export default async function ServicesPage() {
           <div className="mb-12">
             <h1 className="text-4xl font-bold text-white mb-4">Our Services</h1>
             <p className="text-lg text-zinc-400">
-              Comprehensive digital solutions tailored to your business needs.
+              Comprehensive digital solution tailored to your business needs.
             </p>
           </div>
 
